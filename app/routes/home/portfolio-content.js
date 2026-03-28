@@ -4,8 +4,8 @@
 export const portfolioContent = {
   hero: {
     name: 'Shivam Yadav',
-    role: 'AI / ML Engineer',
-    tagline: 'One-line value proposition — replace with how you help teams ship reliable ML systems.',
+    role: 'AI/ML Engineer',
+    tagline: 'Building intelligent, scalable, and reliable AI systems for real-world applications.',
     focusAreas: ['GenAI', 'RAG', 'AI Agents', 'MCP'],
     scrollTargetId: 'about',
     /** When not 'displacementSphere', home page skips Draco WASM prefetch. */
@@ -13,21 +13,71 @@ export const portfolioContent = {
   },
 
   about: {
-    title: 'About me',
+    title: 'About Me',
     paragraphs: [
-      'Short intro: your background (e.g. AI/ML graduate, current role). Replace this paragraph.',
-      'Areas of expertise: GenAI, multimodal AI, agents — and the kinds of problems you solve. Replace this paragraph.',
+      "I'm an AI/ML Engineer with experience in building scalable, reliable, and production-ready software systems for real-world applications. My work spans AI/ML, backend development, intelligent automation, and modern data-driven systems, with a focus on creating practical solutions that are efficient, impactful, and built for deployment.",
+      'I enjoy solving problems across AI products, backend services, information retrieval, workflows, and system design using modern cloud, data, and application technologies. Outside of work, I also enjoy playing football, which reflects my interest in teamwork, discipline, and consistency.',
     ],
-    imageAlt: 'Portrait — replace with your photo description.',
+    imageAlt: 'Shivam Yadav — AI/ML Engineer.',
   },
 
   skills: {
     title: 'Skills',
     groups: [
-      { title: 'AI / ML', items: ['RAG', 'LLMs', 'Agents', 'MCP'] },
-      { title: 'Cloud', items: ['Azure', 'AWS'] },
-      { title: 'Data', items: ['Databricks', 'ADF', 'PostgreSQL'] },
-      { title: 'Tools', items: ['FastAPI', 'LangGraph'] },
+      {
+        title: 'Languages & backend',
+        items: ['Python', 'FastAPI', 'PostgreSQL', 'MongoDB'],
+      },
+      {
+        title: 'AI / ML',
+        items: [
+          'RAG',
+          'Semantic RAG',
+          'LLMs',
+          'AI Agents',
+          'MCP',
+          'NLP',
+          'Multimodal AI',
+          'OCR',
+          'Vector Search',
+          'FAISS',
+        ],
+      },
+      {
+        title: 'Cloud',
+        items: [
+          'Azure',
+          'AWS',
+          'AWS Lambda',
+          'Amazon S3',
+          'DynamoDB',
+          'AWS Rekognition',
+        ],
+      },
+      {
+        title: 'Data',
+        items: [
+          'Databricks',
+          'ADF',
+          'Azure Synapse',
+          'Azure Purview',
+          'ETL Pipelines',
+          'Workflow Automation',
+        ],
+      },
+      {
+        title: 'Tools / search',
+        items: [
+          'Azure Cognitive Search',
+          'Elasticsearch',
+          'OpenSearch',
+          'Kibana',
+          'LLaMA',
+          'Mistral',
+          'Ollama',
+          'Azure OpenAI',
+        ],
+      },
     ],
   },
 
@@ -35,22 +85,25 @@ export const portfolioContent = {
     title: 'Projects',
     items: [
       {
-        title: 'Project title (placeholder)',
-        problem: 'What problem you solved — replace.',
-        solution: 'How you built it — replace.',
-        impact: 'Impact metrics (e.g. 60% faster, 100K+ users) — replace.',
-        stack: ['Python', 'Azure OpenAI', 'FastAPI'],
+        title: 'AutoScrum – AI-Powered Workflow Automation System',
+        problem:
+          'Manual Scrum workflows (requirement analysis, story creation, task allocation) are time-intensive and prone to inefficiencies.',
+        solution:
+          'Developed a multi-agent AI system using MCP that automates requirement analysis, generates structured user stories with acceptance criteria, and performs intelligent task allocation based on team capacity.',
+        impact:
+          '• Reduced manual effort by 50%+\n• Accelerated sprint planning and backlog grooming\n• Improved consistency in user story generation',
+        stack: [
+          'Python',
+          'FastAPI',
+          'LangGraph',
+          'MCP',
+          'Azure OpenAI',
+          'PostgreSQL',
+          'Redis',
+          'React',
+        ],
         demoUrl: '',
-        repoUrl: '',
-      },
-      {
-        title: 'Second project (placeholder)',
-        problem: 'Problem statement.',
-        solution: 'Solution summary.',
-        impact: 'Impact line.',
-        stack: ['LangGraph', 'RAG', 'PostgreSQL'],
-        demoUrl: '',
-        repoUrl: 'https://github.com/glichy-gem',
+        repoUrl: 'https://github.com/Anajrajeev/AutoScrum',
       },
     ],
   },

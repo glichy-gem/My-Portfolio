@@ -10,6 +10,8 @@ import styles from './skills-section.module.css';
 export function SkillsSection({ id, visible, sectionRef }) {
   const { title, groups } = portfolioContent.skills;
   const titleId = `${id}-title`;
+  const leftGroups = groups.filter((_, i) => i % 2 === 0);
+  const rightGroups = groups.filter((_, i) => i % 2 === 1);
 
   return (
     <Section
@@ -35,24 +37,44 @@ export function SkillsSection({ id, visible, sectionRef }) {
                 <DecoderText text={title} start={animVisible} delay={300} />
               </Heading>
             </div>
-            <ul className={styles.groups}>
-              {groups.map(group => (
-                <li key={group.title} className={styles.group} data-visible={animVisible}>
-                  <Text className={styles.groupTitle} size="s" as="h4">
-                    {group.title}
-                  </Text>
-                  <ul className={styles.tags}>
-                    {group.items.map(item => (
-                      <li key={item} className={styles.tag}>
-                        <Text secondary size="s" as="span">
-                          {item}
-                        </Text>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.columns}>
+              <ul className={styles.column}>
+                {leftGroups.map(group => (
+                  <li key={group.title} className={styles.group} data-visible={animVisible}>
+                    <Text className={styles.groupTitle} size="s" as="h4">
+                      {group.title}
+                    </Text>
+                    <ul className={styles.tags}>
+                      {group.items.map(item => (
+                        <li key={item} className={styles.tag}>
+                          <Text secondary size="s" as="span">
+                            {item}
+                          </Text>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+              <ul className={styles.column}>
+                {rightGroups.map(group => (
+                  <li key={group.title} className={styles.group} data-visible={animVisible}>
+                    <Text className={styles.groupTitle} size="s" as="h4">
+                      {group.title}
+                    </Text>
+                    <ul className={styles.tags}>
+                      {group.items.map(item => (
+                        <li key={item} className={styles.tag}>
+                          <Text secondary size="s" as="span">
+                            {item}
+                          </Text>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
       </Transition>

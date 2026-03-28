@@ -32,16 +32,28 @@
   }
 }
 
-.groups {
+.columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space2XL);
+  align-items: stretch;
+
+  @media (--mediaDesktop) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spaceXL);
+  }
+}
+
+.column {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--space2XL);
-
-  @media (--mediaDesktop) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .group {
@@ -67,6 +79,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spaceS);
+  align-content: flex-start;
 }
 
 .tag {

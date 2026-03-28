@@ -38,6 +38,14 @@
   }
 }
 
+.gridSingle {
+  justify-items: center;
+
+  @media (--mediaDesktop) {
+    grid-template-columns: 1fr;
+  }
+}
+
 .card {
   padding: var(--spaceXL);
   border: 1px solid color-mix(in lab, var(--text) 12%, transparent);
@@ -48,6 +56,33 @@
   &[data-visible='true'] {
     opacity: 1;
   }
+}
+
+.cardFeatured {
+  width: 100%;
+  max-width: var(--maxWidthM);
+  padding: var(--space2XL);
+  border-radius: 12px;
+  border: 1px solid color-mix(in lab, var(--primary) 32%, transparent);
+  border-top: 3px solid var(--primary);
+  background: linear-gradient(
+    155deg,
+    color-mix(in lab, var(--primary) 12%, var(--background)) 0%,
+    color-mix(in lab, var(--background) 98%, var(--text)) 48%,
+    color-mix(in lab, var(--background) 94%, var(--text)) 100%
+  );
+  box-shadow:
+    0 1px 0 color-mix(in lab, var(--primary) 18%, transparent) inset,
+    0 var(--spaceXL) var(--space3XL) color-mix(in lab, #000 45%, transparent),
+    0 0 var(--space2XL) color-mix(in lab, var(--primary) 8%, transparent);
+}
+
+.eyebrow {
+  margin: 0 0 var(--spaceS);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: var(--fontWeightMedium);
 }
 
 .cardTitle {
@@ -66,6 +101,14 @@
   margin-bottom: var(--spaceXS);
 }
 
+.cardFeatured .label {
+  color: color-mix(in lab, var(--primary) 55%, var(--textLight));
+}
+
+.impactBody {
+  white-space: pre-line;
+}
+
 .stack {
   list-style: none;
   margin: 0;
@@ -73,6 +116,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spaceS);
+}
+
+.stack li {
+  padding: var(--spaceXS) var(--spaceM);
+  border: 1px solid color-mix(in lab, var(--primary) 28%, transparent);
+  border-radius: 6px;
+  background: color-mix(in lab, var(--primary) 8%, transparent);
+}
+
+.card:not([data-featured='true']) .stack li {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
 }
 
 .actions {
