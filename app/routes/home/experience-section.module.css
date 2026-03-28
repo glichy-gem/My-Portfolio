@@ -1,0 +1,83 @@
+.experience {
+  width: 100vw;
+  padding: var(--space4XL) var(--spaceOuter);
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space2XL);
+}
+
+.inner {
+  max-width: var(--maxWidthM);
+  width: 100%;
+}
+
+.header {
+  margin-bottom: var(--space2XL);
+}
+
+.divider {
+  margin-bottom: var(--spaceL);
+}
+
+.heading {
+  opacity: 0;
+  transition: opacity var(--durationXL) ease var(--durationM);
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space2XL);
+}
+
+.role {
+  padding-bottom: var(--space2XL);
+  border-bottom: 1px solid color-mix(in lab, var(--text) 12%, transparent);
+  opacity: 0;
+  transition: opacity var(--durationL) ease;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.roleHeader {
+  margin-bottom: var(--spaceM);
+}
+
+.roleTitle {
+  margin-bottom: var(--spaceXS);
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  margin: 0;
+}
+
+.bullets {
+  list-style: disc;
+  margin: 0 0 0 var(--spaceL);
+  padding: 0;
+
+  & li {
+    margin-bottom: var(--spaceS);
+  }
+}
+
+.impact {
+  margin-top: var(--spaceM);
+  color: var(--primary);
+  font-weight: var(--fontWeightMedium);
+}

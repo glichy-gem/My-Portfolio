@@ -1,0 +1,163 @@
+import { DecoderText } from '~/components/decoder-text';
+import { Heading } from '~/components/heading';
+import { Section } from '~/components/section';
+import { Text } from '~/components/text';
+import { useTheme } from '~/components/theme-provider';
+import { tokens } from '~/components/theme-provider/theme';
+import { Transition } from '~/components/transition';
+import { VisuallyHidden } from '~/components/visually-hidden';
+import { Link as RouterLink } from '@remix-run/react';
+import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { cssProps } from '~/utils/style';
+import config from '~/config.json';
+import { useHydrated } from '~/hooks/useHydrated';
+import styles from './intro.module.css';
+
+const DisplacementSphere = lazy(() =>
+  import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
+);
+
+export function Intro({
+  id,
+  sectionRef,
+  scrollIndicatorHidden,
+  name = config.name,
+  role = config.role,
+  focusAreas = config.disciplines,
+  tagline,
+  scrollTargetId = 'about',
+  ...rest
+}) {
+  const { theme } = useTheme();
+  const [disciplineIndex, setDisciplineIndex] = useState(0);
+  const prevTheme = usePrevious(theme);
+  const introLabel =
+    focusAreas.length > 1
+      ? [focusAreas.slice(0, -1).join(', '), focusAreas.slice(-1)[0]].join(', and ')
+      : focusAreas[0] || '';
+  const currentDiscipline = focusAreas.find((item, index) => index === disciplineIndex);
+  const titleId = `${id}-title`;
+  const scrollToHash = useScrollToHash();
+  const isHydrated = useHydrated();
+  const focusCount = Math.max(focusAreas.length, 1);
+
+  useInterval(
+    () => {
+      const index = (disciplineIndex + 1) % focusCount;
+      setDisciplineIndex(index);
+    },
+    5000,
+    theme
+  );
+
+  useEffect(() => {
+    if (prevTheme && prevTheme !== theme) {
+      setDisciplineIndex(0);
+    }
+  }, [theme, prevTheme]);
+
+  const handleScrollClick = event => {
+    event.preventDefault();
+    scrollToHash(event.currentTarget.href);
+  };
+
+  return (
+    <Section
+      className={styles.intro}
+      as="section"
+      ref={sectionRef}
+      id={id}
+      aria-labelledby={titleId}
+      tabIndex={-1}
+      {...rest}
+    >
+      <Transition in key={theme} timeout={3000}>
+        {({ visible, status }) => (
+          <>
+            {isHydrated && (
+              <Suspense>
+                <DisplacementSphere />
+              </Suspense>
+            )}
+            <header className={styles.text}>
+              <h1 className={styles.name} data-visible={visible} id={titleId}>
+                <DecoderText text={name} delay={500} />
+              </h1>
+              {tagline && (
+                <Text className={styles.tagline} data-visible={visible} size="l" as="p">
+                  {tagline}
+                </Text>
+              )}
+              <Heading level={0} as="h2" className={styles.title}>
+                <VisuallyHidden className={styles.label}>
+                  {`${role} + ${introLabel}`}
+                </VisuallyHidden>
+                <span aria-hidden className={styles.row}>
+                  <span
+                    className={styles.word}
+                    data-status={status}
+                    style={cssProps({ delay: tokens.base.durationXS })}
+                  >
+                    {role}
+                  </span>
+                  <span className={styles.line} data-status={status} />
+                </span>
+                <div className={styles.row}>
+                  {focusAreas.map(item => (
+                    <Transition
+                      unmount
+                      in={item === currentDiscipline}
+                      timeout={{ enter: 3000, exit: 2000 }}
+                      key={item}
+                    >
+                      {({ status: itemStatus, nodeRef }) => (
+                        <span
+                          aria-hidden
+                          ref={nodeRef}
+                          className={styles.word}
+                          data-plus={true}
+                          data-status={itemStatus}
+                          style={cssProps({ delay: tokens.base.durationL })}
+                        >
+                          {item}
+                        </span>
+                      )}
+                    </Transition>
+                  ))}
+                </div>
+              </Heading>
+            </header>
+            <RouterLink
+              to={`/#${scrollTargetId}`}
+              className={styles.scrollIndicator}
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+              onClick={handleScrollClick}
+            >
+              <VisuallyHidden>Scroll to next section</VisuallyHidden>
+            </RouterLink>
+            <RouterLink
+              to={`/#${scrollTargetId}`}
+              className={styles.mobileScrollIndicator}
+              data-status={status}
+              data-hidden={scrollIndicatorHidden}
+              onClick={handleScrollClick}
+            >
+              <VisuallyHidden>Scroll to next section</VisuallyHidden>
+              <svg
+                aria-hidden
+                stroke="currentColor"
+                width="43"
+                height="15"
+                viewBox="0 0 43 15"
+              >
+                <path d="M1 1l20.5 12L42 1" strokeWidth="2" fill="none" />
+              </svg>
+            </RouterLink>
+          </>
+        )}
+      </Transition>
+    </Section>
+  );
+}
