@@ -1,20 +1,21 @@
-import { json, createCookieSessionStorage } from '@remix-run/cloudflare';
+import { json } from '@remix-run/cloudflare';
+import { getThemeSessionStorage } from '~/session.server';
+
+function normalizeTheme(value) {
+  if (value === 'light' || value === 'dark') return value;
+  return null;
+}
 
 export async function action({ request, context }) {
   const formData = await request.formData();
-  const theme = formData.get('theme');
+  const raw = formData.get('theme');
+  const theme = normalizeTheme(typeof raw === 'string' ? raw : null);
 
-  const { getSession, commitSession } = createCookieSessionStorage({
-    cookie: {
-      name: '__session',
-      httpOnly: true,
-      maxAge: 604_800,
-      path: '/',
-      sameSite: 'lax',
-      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
-      secure: true,
-    },
-  });
+  if (!theme) {
+    return json({ status: 'error', message: 'Invalid theme' }, { status: 400 });
+  }
+
+  const { getSession, commitSession } = getThemeSessionStorage(context.cloudflare.env);
 
   const session = await getSession(request.headers.get('Cookie'));
   session.set('theme', theme);
@@ -24,6 +25,7 @@ export async function action({ request, context }) {
     {
       headers: {
         'Set-Cookie': await commitSession(session),
+        'Cache-Control': 'no-store',
       },
     }
   );

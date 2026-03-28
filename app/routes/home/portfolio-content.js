@@ -85,7 +85,7 @@ export const portfolioContent = {
     title: 'Projects',
     items: [
       {
-        title: 'AutoScrum – AI-Powered Workflow Automation System',
+        title: 'AutoScrum - AI Powered Workflow Automation System',
         problem:
           'Manual Scrum workflows (requirement analysis, story creation, task allocation) are time-intensive and prone to inefficiencies.',
         solution:

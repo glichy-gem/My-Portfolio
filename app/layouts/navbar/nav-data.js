@@ -35,7 +35,7 @@ export const socialLinks = [
   {
     label: 'LinkedIn',
     url: config.linkedin,
-    icon: 'link',
+    icon: 'linkedin',
   },
   {
     label: 'Github',

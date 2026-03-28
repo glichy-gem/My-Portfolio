@@ -1,3 +1,9 @@
-kv_namespaces = [
-  { id = "MY_KV", binding="MY_KV" }
-]
+# Cloudflare Pages — https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+name = "portfolio"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "build/client"
+
+# Add KV / D1 / etc. here when you use them (real IDs from the dashboard).
+# [[kv_namespaces]]
+# binding = "MY_KV"
+# id = "your-namespace-id"
