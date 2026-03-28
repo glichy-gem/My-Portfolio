@@ -1,9 +1,9 @@
 {
   "name": "portfolio",
-  "homepage": "https://hamishw.com",
-  "description": "Portfolio site for Hamish Williams",
-  "repository": "https://github.com/HamishMW/portfolio.git",
-  "author": "Hamish Williams",
+  "homepage": "https://github.com/glichy-gem/My-Portfolio",
+  "description": "Portfolio site for Shivam Yadav",
+  "repository": "https://github.com/glichy-gem/My-Portfolio.git",
+  "author": "Shivam Yadav",
   "sideEffects": false,
   "type": "module",
   "scripts": {

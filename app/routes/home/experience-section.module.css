@@ -59,7 +59,7 @@
 
 .roleTitle {
   margin-bottom: var(--spaceXS);
-  letter-spacing: -0.02em;
+  font-weight: var(--fontWeightMedium);
 }
 
 .meta {
@@ -68,16 +68,35 @@
 
 .bullets {
   list-style: disc;
-  margin: 0 0 0 var(--spaceL);
+  margin: var(--spaceS) 0 0 var(--spaceL);
   padding: 0;
 
   & li {
     margin-bottom: var(--spaceS);
+
+    &::marker {
+      color: var(--textLight);
+    }
   }
+}
+
+.bulletText {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.techStackLine {
+  margin: var(--spaceM) 0 0;
+  line-height: 1.5;
+}
+
+.techStackLabel {
+  font-weight: var(--fontWeightMedium);
 }
 
 .impact {
   margin-top: var(--spaceM);
   color: var(--primary);
   font-weight: var(--fontWeightMedium);
+  line-height: 1.5;
 }

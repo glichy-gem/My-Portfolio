@@ -56,3 +56,19 @@
   margin-bottom: var(--spaceXS);
   font-weight: var(--fontWeightMedium);
 }
+
+.meta {
+  margin-bottom: 0;
+}
+
+.description {
+  margin-top: var(--spaceS);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.credentialLink {
+  display: inline-block;
+  margin-top: var(--spaceM);
+  font-size: var(--fontSizeS);
+}

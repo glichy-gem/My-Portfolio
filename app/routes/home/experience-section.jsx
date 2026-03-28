@@ -44,9 +44,9 @@ export function ExperienceSection({ id, visible, sectionRef }) {
                   style={{ transitionDelay: `${index * 60}ms` }}
                 >
                   <div className={styles.roleHeader}>
-                    <Heading className={styles.roleTitle} level={4} as="h3">
+                    <Text size="l" as="h4" className={styles.roleTitle}>
                       {role.title}
-                    </Heading>
+                    </Text>
                     <Text secondary size="s" as="p" className={styles.meta}>
                       {role.company}
                       {role.period ? ` · ${role.period}` : ''}
@@ -55,12 +55,18 @@ export function ExperienceSection({ id, visible, sectionRef }) {
                   <ul className={styles.bullets}>
                     {role.contributions.map((line, i) => (
                       <li key={i}>
-                        <Text size="m" as="p">
+                        <Text secondary size="s" as="p" className={styles.bulletText}>
                           {line}
                         </Text>
                       </li>
                     ))}
                   </ul>
+                  {role.techStack ? (
+                    <Text secondary size="s" as="p" className={styles.techStackLine}>
+                      <span className={styles.techStackLabel}>Tech Stack: </span>
+                      {role.techStack}
+                    </Text>
+                  ) : null}
                   {role.impact ? (
                     <Text className={styles.impact} size="s" as="p">
                       {role.impact}

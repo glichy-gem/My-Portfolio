@@ -1,6 +1,7 @@
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
 import { Heading } from '~/components/heading';
+import { Link } from '~/components/link';
 import { Section } from '~/components/section';
 import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
@@ -46,9 +47,26 @@ export function CertificationsSection({ id, visible, sectionRef }) {
                   <Text size="l" as="p" className={styles.name}>
                     {cert.name}
                   </Text>
-                  <Text secondary size="s" as="p">
-                    {[cert.issuer, cert.year].filter(Boolean).join(' · ')}
-                  </Text>
+                  {[cert.issuer, cert.year].filter(Boolean).length > 0 ? (
+                    <Text secondary size="s" as="p" className={styles.meta}>
+                      {[cert.issuer, cert.year].filter(Boolean).join(' · ')}
+                    </Text>
+                  ) : null}
+                  {cert.description ? (
+                    <Text secondary size="s" as="p" className={styles.description}>
+                      {cert.description}
+                    </Text>
+                  ) : null}
+                  {cert.credentialUrl ? (
+                    <Link
+                      secondary
+                      className={styles.credentialLink}
+                      href={cert.credentialUrl}
+                      aria-label={`View credential for ${cert.name}`}
+                    >
+                      View credential
+                    </Link>
+                  ) : null}
                 </li>
               ))}
             </ul>
