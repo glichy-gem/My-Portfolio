@@ -2,13 +2,12 @@ import { DecoderText } from '~/components/decoder-text';
 import { Heading } from '~/components/heading';
 import { Section } from '~/components/section';
 import { Text } from '~/components/text';
-import { useTheme } from '~/components/theme-provider';
 import { tokens } from '~/components/theme-provider/theme';
 import { Transition } from '~/components/transition';
 import { VisuallyHidden } from '~/components/visually-hidden';
 import { Link as RouterLink } from '@remix-run/react';
-import { useInterval, usePrevious, useScrollToHash } from '~/hooks';
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { useInterval, useScrollToHash } from '~/hooks';
+import { Suspense, lazy, useState } from 'react';
 import { cssProps } from '~/utils/style';
 import config from '~/config.json';
 import { useHydrated } from '~/hooks/useHydrated';
@@ -29,9 +28,7 @@ export function Intro({
   scrollTargetId = 'about',
   ...rest
 }) {
-  const { theme } = useTheme();
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const prevTheme = usePrevious(theme);
   const introLabel =
     focusAreas.length > 1
       ? [focusAreas.slice(0, -1).join(', '), focusAreas.slice(-1)[0]].join(', and ')
@@ -42,20 +39,10 @@ export function Intro({
   const isHydrated = useHydrated();
   const focusCount = Math.max(focusAreas.length, 1);
 
-  useInterval(
-    () => {
-      const index = (disciplineIndex + 1) % focusCount;
-      setDisciplineIndex(index);
-    },
-    5000,
-    theme
-  );
-
-  useEffect(() => {
-    if (prevTheme && prevTheme !== theme) {
-      setDisciplineIndex(0);
-    }
-  }, [theme, prevTheme]);
+  useInterval(() => {
+    const index = (disciplineIndex + 1) % focusCount;
+    setDisciplineIndex(index);
+  }, 5000);
 
   const handleScrollClick = event => {
     event.preventDefault();
@@ -72,7 +59,7 @@ export function Intro({
       tabIndex={-1}
       {...rest}
     >
-      <Transition in key={theme} timeout={3000}>
+      <Transition in timeout={3000}>
         {({ visible, status }) => (
           <>
             {isHydrated && (

@@ -4,14 +4,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useFetcher,
   useLoaderData,
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
 import { json } from '@remix-run/cloudflare';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
-import { themeSessionStorage } from '~/session.server';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { useEffect } from 'react';
@@ -24,22 +22,12 @@ import styles from './root.module.css';
 import './reset.module.css';
 import './global.module.css';
 
-const THEME_HEADERS = {
-  'Cache-Control': 'private, no-store, max-age=0, must-revalidate',
-  Vary: 'Cookie',
-};
-
-function normalizeTheme(value) {
-  return value === 'light' ? 'light' : 'dark';
-}
+// The site uses a single fixed theme so every visitor and every browser
+// sees exactly the same design — no toggle, no cookie, no flashes.
+const THEME = 'dark';
 
 export function headers({ loaderHeaders }) {
   const h = new Headers(loaderHeaders);
-  h.set('Cache-Control', THEME_HEADERS['Cache-Control']);
-  const vary = h.get('Vary');
-  if (!vary || !/\bCookie\b/i.test(vary)) {
-    h.set('Vary', vary ? `${vary}, Cookie` : 'Cookie');
-  }
   // Security headers for rendered pages. Cloudflare Pages' _headers file
   // only covers static assets, not Functions responses like this HTML.
   h.set('X-Content-Type-Options', 'nosniff');
@@ -78,37 +66,12 @@ export const loader = async ({ request }) => {
   const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
   const canonicalUrl = `${config.url}${pathnameSliced}`;
 
-  let theme = 'dark';
-  try {
-    const session = await themeSessionStorage.getSession(request.headers.get('Cookie'));
-    theme = normalizeTheme(session.get('theme'));
-  } catch {
-    theme = 'dark';
-  }
-
-  // Do not commitSession on root GET — races POST /api/set-theme. Cookie is set only in that action.
-  return json({ canonicalUrl, theme }, { headers: THEME_HEADERS });
+  return json({ canonicalUrl });
 };
 
 export default function App() {
-  let { canonicalUrl, theme } = useLoaderData();
-  const fetcher = useFetcher();
+  const { canonicalUrl } = useLoaderData();
   const { state } = useNavigation();
-
-  // Optimistic theme: while the set-theme submission is in flight (submitting and
-  // the revalidation that follows it), read the value from the form data. By the
-  // time the fetcher goes idle, the root loader has been revalidated with the new
-  // cookie, so loader data takes over seamlessly.
-  if (fetcher.formData?.has('theme')) {
-    theme = normalizeTheme(fetcher.formData.get('theme'));
-  }
-
-  function toggleTheme(newTheme) {
-    fetcher.submit(
-      { theme: newTheme ? newTheme : theme === 'dark' ? 'light' : 'dark' },
-      { action: '/api/set-theme', method: 'post' }
-    );
-  }
 
   useEffect(() => {
     console.info(
@@ -122,19 +85,15 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
-        <meta name="theme-color" content={theme === 'dark' ? '#111' : '#F2F2F2'} />
-        <meta
-          name="color-scheme"
-          content={theme === 'light' ? 'light dark' : 'dark light'}
-        />
+        <meta name="theme-color" content="#111" />
+        <meta name="color-scheme" content="dark light" />
         <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
         <Meta />
         <Links />
         <link rel="canonical" href={canonicalUrl} />
       </head>
-      <body data-theme={theme}>
-        <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
+      <body data-theme={THEME}>
+        <ThemeProvider theme={THEME}>
           <Progress />
           <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
             Skip to main content
@@ -170,7 +129,7 @@ export function ErrorBoundary() {
         <Meta />
         <Links />
       </head>
-      <body data-theme="dark">
+      <body data-theme={THEME}>
         <Error error={error} />
         <ScrollRestoration />
         <Scripts />

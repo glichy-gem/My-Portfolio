@@ -1,4 +1,3 @@
-import { useTheme } from '~/components/theme-provider';
 import { Transition } from '~/components/transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
 import { useInViewport, useWindowSize } from '~/hooks';
@@ -29,7 +28,6 @@ const springConfig = {
 };
 
 export const DisplacementSphere = props => {
-  const { theme } = useTheme();
   const start = useRef(Date.now());
   const canvasRef = useRef();
   const renderer = useRef();
@@ -102,8 +100,8 @@ export const DisplacementSphere = props => {
   useEffect(() => {
     if (!renderer.current) return;
 
-    const dirLight = new DirectionalLight(0xffffff, theme === 'light' ? 1.8 : 2.0);
-    const ambientLight = new AmbientLight(0xffffff, theme === 'light' ? 2.7 : 0.4);
+    const dirLight = new DirectionalLight(0xffffff, 2.0);
+    const ambientLight = new AmbientLight(0xffffff, 0.4);
 
     dirLight.position.z = 200;
     dirLight.position.x = 100;
@@ -115,7 +113,7 @@ export const DisplacementSphere = props => {
     return () => {
       removeLights(lights.current);
     };
-  }, [theme]);
+  }, []);
 
   useEffect(() => {
     if (!renderer.current) return;
