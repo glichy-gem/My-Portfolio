@@ -41,7 +41,7 @@
   @media (--mediaDesktop) {
     flex-direction: row;
     align-items: flex-start;
-    gap: var(--spaceXL);
+    gap: var(--space3XL);
   }
 }
 
@@ -65,11 +65,34 @@
   }
 }
 
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceS);
+  margin-bottom: var(--spaceL);
+}
+
+.groupIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.groupIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .groupTitle {
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  margin-bottom: var(--spaceM);
   color: var(--textLight);
+  margin: 0;
 }
 
 .tags {
@@ -83,7 +106,49 @@
 }
 
 .tag {
-  padding: var(--spaceXS) var(--spaceM);
-  border: 1px solid color-mix(in lab, var(--text) 20%, transparent);
-  border-radius: 4px;
+  padding: 6px 14px;
+  border: 1px solid color-mix(in lab, var(--text) 14%, transparent);
+  border-radius: 999px;
+  background: color-mix(in lab, var(--accent) 3%, transparent);
+  color: var(--textBody);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--durationM) ease,
+    transform var(--durationM) ease,
+    border-color var(--durationS) ease,
+    background var(--durationS) ease,
+    color var(--durationS) ease,
+    box-shadow var(--durationS) ease;
+  cursor: default;
+  will-change: transform;
+}
+
+.group[data-visible='true'] .tag {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--i, 0) * 30ms + 200ms);
+}
+
+.tag:hover {
+  border-color: color-mix(in lab, var(--accent) 60%, transparent);
+  background: color-mix(in lab, var(--accent) 10%, transparent);
+  color: var(--text);
+  box-shadow: 0 4px 14px color-mix(in lab, var(--accent) 22%, transparent);
+  transition-delay: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag {
+    opacity: 1;
+    transform: none;
+    transition: border-color var(--durationS) ease,
+      background var(--durationS) ease,
+      color var(--durationS) ease,
+      box-shadow var(--durationS) ease;
+  }
+
+  .tag:hover {
+    box-shadow: none;
+  }
 }
