@@ -4,7 +4,7 @@
   "description": "Portfolio site for Shivam Yadav",
   "repository": "https://github.com/glichy-gem/My-Portfolio.git",
   "author": "Shivam Yadav",
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "type": "module",
   "scripts": {
     "build": "remix vite:build",

@@ -19,8 +19,8 @@ import { Navbar } from '~/layouts/navbar';
 import { Progress } from '~/components/progress';
 import config from '~/config.json';
 import styles from './root.module.css';
-import './reset.module.css';
-import './global.module.css';
+import './reset.css';
+import './global.css';
 
 // The site uses a single fixed theme so every visitor and every browser
 // sees exactly the same design — no toggle, no cookie, no flashes.
