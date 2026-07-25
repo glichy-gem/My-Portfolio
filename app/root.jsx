@@ -40,6 +40,12 @@ export function headers({ loaderHeaders }) {
   if (!vary || !/\bCookie\b/i.test(vary)) {
     h.set('Vary', vary ? `${vary}, Cookie` : 'Cookie');
   }
+  // Security headers for rendered pages. Cloudflare Pages' _headers file
+  // only covers static assets, not Functions responses like this HTML.
+  h.set('X-Content-Type-Options', 'nosniff');
+  h.set('X-Frame-Options', 'DENY');
+  h.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  h.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   return h;
 }
 
