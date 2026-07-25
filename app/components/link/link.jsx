@@ -21,7 +21,6 @@ export const Link = forwardRef(
       className: classes(styles.link, className),
       ['data-secondary']: secondary,
       rel: relValue,
-      href: href,
       target: targetValue,
       ref: ref,
       ...rest,

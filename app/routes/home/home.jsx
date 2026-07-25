@@ -11,28 +11,6 @@ import { ProjectsSection } from './projects-section';
 import { SkillsSection } from './skills-section';
 import styles from './home.module.css';
 
-export const links = () => {
-  if (portfolioContent.hero.background !== 'displacementSphere') {
-    return [];
-  }
-  return [
-    {
-      rel: 'prefetch',
-      href: '/draco/draco_wasm_wrapper.js',
-      as: 'script',
-      type: 'text/javascript',
-      importance: 'low',
-    },
-    {
-      rel: 'prefetch',
-      href: '/draco/draco_decoder.wasm',
-      as: 'fetch',
-      type: 'application/wasm',
-      importance: 'low',
-    },
-  ];
-};
-
 export const meta = () => {
   const { name, role } = portfolioContent.hero;
   return baseMeta({
@@ -70,8 +48,9 @@ export const Home = () => {
           if (entry.isIntersecting) {
             const section = entry.target;
             observer.unobserve(section);
-            if (visibleSections.includes(section)) return;
-            setVisibleSections(prevSections => [...prevSections, section]);
+            setVisibleSections(prevSections =>
+              prevSections.includes(section) ? prevSections : [...prevSections, section]
+            );
           }
         });
       },
@@ -95,7 +74,7 @@ export const Home = () => {
       sectionObserver.disconnect();
       indicatorObserver.disconnect();
     };
-  }, [visibleSections]);
+  }, []);
 
   const isVisible = ref =>
     ref.current ? visibleSections.includes(ref.current) : false;

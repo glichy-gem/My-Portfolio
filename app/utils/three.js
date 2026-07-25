@@ -1,20 +1,3 @@
-import { Cache, TextureLoader } from 'three';
-import { DRACOLoader, GLTFLoader } from 'three-stdlib';
-
-// Enable caching for all loaders
-Cache.enabled = true;
-
-const dracoLoader = new DRACOLoader();
-const gltfLoader = new GLTFLoader();
-dracoLoader.setDecoderPath('/draco/');
-gltfLoader.setDRACOLoader(dracoLoader);
-
-/**
- * GLTF model loader configured with draco decoder
- */
-export const modelLoader = gltfLoader;
-export const textureLoader = new TextureLoader();
-
 /**
  * Clean up a scene's materials and geometry
  */
@@ -52,11 +35,12 @@ export const cleanMaterial = material => {
 };
 
 /**
- * Clean up and dispose of a renderer
+ * Clean up and dispose of a renderer.
+ * Note: don't force-lose the context here — React 18 dev double-invokes
+ * effects, and a force-lost canvas cannot create a new context on remount.
  */
 export const cleanRenderer = renderer => {
-  renderer.dispose();
-  renderer = null;
+  renderer?.dispose();
 };
 
 /**
@@ -66,19 +50,4 @@ export const removeLights = lights => {
   for (const light of lights) {
     light.parent.remove(light);
   }
-};
-
-/**
- * Get child by name
- */
-export const getChild = (name, object) => {
-  let node;
-
-  object.traverse(child => {
-    if (child.name === name) {
-      node = child;
-    }
-  });
-
-  return node;
 };

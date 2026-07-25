@@ -40,8 +40,17 @@ function shuffle(content, output, position) {
       return { type: CharType.Glyph, value: glyphs[rand] };
     }
 
-    return { type: CharType.Glyph, value: output[index].value };
+    // The previous output can be shorter than the content on early frames
+    return { type: CharType.Glyph, value: output[index]?.value ?? '' };
   });
+}
+
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 export const DecoderText = memo(
@@ -58,7 +67,7 @@ export const DecoderText = memo(
 
       const renderOutput = () => {
         const characterMap = output.current.map(item => {
-          return `<span class="${styles[item.type]}">${item.value}</span>`;
+          return `<span class="${styles[item.type]}">${escapeHtml(item.value)}</span>`;
         });
 
         containerInstance.innerHTML = characterMap.join('');

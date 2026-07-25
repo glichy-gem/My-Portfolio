@@ -23,16 +23,27 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
         tempImage.sizes = sizes;
       }
 
-      const onLoad = () => {
+      const cleanup = () => {
         tempImage.removeEventListener('load', onLoad);
-        const source = tempImage.currentSrc;
+        tempImage.removeEventListener('error', onError);
         tempImage = null;
+      };
+
+      const onLoad = () => {
+        const source = tempImage.currentSrc;
+        cleanup();
         resolve(source);
       };
 
+      const onError = () => {
+        cleanup();
+        reject(new Error(`Failed to load image: ${srcSet || src}`));
+      };
+
       tempImage.addEventListener('load', onLoad);
+      tempImage.addEventListener('error', onError);
     } catch (error) {
-      reject(`Error loading ${srcSet}: ${error}`);
+      reject(new Error(`Error loading ${srcSet}: ${error}`));
     }
   });
 }
@@ -41,7 +52,7 @@ export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
  * Generates a transparent png of a given width and height
  */
 export async function generateImage(width = 1, height = 1) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -51,8 +62,11 @@ export async function generateImage(width = 1, height = 1) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0)';
     ctx.fillRect(0, 0, width, height);
 
-    canvas.toBlob(async blob => {
-      if (!blob) throw new Error('Video thumbnail failed to load');
+    canvas.toBlob(blob => {
+      if (!blob) {
+        reject(new Error('Video thumbnail failed to load'));
+        return;
+      }
       const image = URL.createObjectURL(blob);
       canvas.remove();
       resolve(image);
@@ -73,9 +87,17 @@ export async function resolveSrcFromSrcSet({ srcSet, sizes }) {
     })
   );
 
-  const fakeSrcSet = sources.map(({ image, width }) => `${image} ${width}`).join(', ');
-  const fakeSrc = await loadImageFromSrcSet({ srcSet: fakeSrcSet, sizes });
+  try {
+    const fakeSrcSet = sources.map(({ image, width }) => `${image} ${width}`).join(', ');
+    const fakeSrc = await loadImageFromSrcSet({ srcSet: fakeSrcSet, sizes });
 
-  const output = sources.find(src => src.image === fakeSrc);
-  return output.src;
+    const output = sources.find(src => src.image === fakeSrc);
+    return output.src;
+  } finally {
+    // The generated blob urls are only needed to probe which source the
+    // browser picks — release them so they don't leak for the page lifetime
+    for (const { image } of sources) {
+      URL.revokeObjectURL(image);
+    }
+  }
 }

@@ -6,7 +6,7 @@ import styles from './footer.module.css';
 export const Footer = ({ className }) => (
   <footer className={classes(styles.footer, className)}>
     <Text size="s" align="center">
-      <span className={styles.date}>
+      <span className={styles.date} suppressHydrationWarning>
         {`© ${new Date().getFullYear()} ${config.name}.`}
       </span>
     </Text>

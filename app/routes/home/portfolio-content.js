@@ -8,7 +8,6 @@ export const portfolioContent = {
     tagline: 'Building intelligent, scalable, and reliable AI systems for real-world applications.',
     focusAreas: ['GenAI', 'RAG', 'AI Agents', 'MCP'],
     scrollTargetId: 'about',
-    /** When not 'displacementSphere', home page skips Draco WASM prefetch. */
     background: 'displacementSphere',
   },
 

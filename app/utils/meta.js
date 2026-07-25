@@ -13,6 +13,7 @@ export function baseMeta({
 
   return [
     { title: titleText },
+    ...(twitter ? [{ property: 'twitter:creator', content: twitter }] : []),
     { name: 'description', content: description },
     { name: 'author', content: name },
     { property: 'og:image', content: ogImage },
@@ -28,7 +29,6 @@ export function baseMeta({
     { property: 'twitter:description', content: description },
     { property: 'twitter:title', content: titleText },
     { property: 'twitter:site', content: url },
-    { property: 'twitter:creator', content: twitter },
     { property: 'twitter:image', content: ogImage },
   ];
 }

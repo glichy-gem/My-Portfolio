@@ -1,15 +1,14 @@
 import { createCookieSessionStorage } from '@remix-run/cloudflare';
 
-export function getThemeSessionStorage(env) {
-  return createCookieSessionStorage({
-    cookie: {
-      name: '__session',
-      httpOnly: true,
-      maxAge: 604_800,
-      path: '/',
-      sameSite: 'lax',
-      secrets: [env.SESSION_SECRET || ' '],
-      secure: true,
-    },
-  });
-}
+// The session only stores the theme preference — nothing sensitive —
+// so the cookie is unsigned and no secret is required.
+export const themeSessionStorage = createCookieSessionStorage({
+  cookie: {
+    name: '__session',
+    httpOnly: true,
+    maxAge: 604_800,
+    path: '/',
+    sameSite: 'lax',
+    secure: true,
+  },
+});

@@ -1,21 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+// Default dimensions used during SSR and the first client render,
+// before the real window size is measured in an effect.
+const DEFAULT_SIZE = { width: 1280, height: 800 };
+
 export function useWindowSize() {
-  const dimensions = useRef(() => ({ w: 1280, h: 800 }));
+  const iosHeight = useRef(DEFAULT_SIZE.height);
 
   const createRuler = useCallback(() => {
     let ruler = document.createElement('div');
 
     ruler.style.position = 'fixed';
     ruler.style.height = '100vh';
-    ruler.style.width = 0;
-    ruler.style.top = 0;
+    ruler.style.width = '0';
+    ruler.style.top = '0';
 
     document.documentElement.appendChild(ruler);
 
     // Set cache conscientious of device orientation
-    dimensions.current.w = window.innerWidth;
-    dimensions.current.h = ruler.offsetHeight;
+    iosHeight.current = ruler.offsetHeight;
 
     // Clean up after ourselves
     document.documentElement.removeChild(ruler);
@@ -28,7 +31,7 @@ export function useWindowSize() {
 
     if (isIOS) {
       createRuler();
-      return dimensions.current.h;
+      return iosHeight.current;
     }
 
     return window.innerHeight;
@@ -41,7 +44,7 @@ export function useWindowSize() {
     };
   }, [getHeight]);
 
-  const [windowSize, setWindowSize] = useState(dimensions.current);
+  const [windowSize, setWindowSize] = useState(DEFAULT_SIZE);
 
   useEffect(() => {
     const handleResize = () => {

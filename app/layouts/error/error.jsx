@@ -12,10 +12,10 @@ import { Image } from '~/components/image';
 import flatlineSkull from './error-flatline.svg';
 
 export function Error({ error }) {
-  const flatlined = !error.status;
+  const flatlined = !error?.status;
 
   const getMessage = () => {
-    switch (error.status) {
+    switch (error?.status) {
       case 404:
         return {
           summary: 'Error: redacted',
@@ -30,7 +30,7 @@ export function Error({ error }) {
       default:
         return {
           summary: 'Error: anomaly',
-          message: error.statusText || error.data || error.toString(),
+          message: error?.statusText || error?.data || String(error),
         };
     }
   };

@@ -13,7 +13,6 @@ import {
   Scene,
   SphereGeometry,
   UniformsUtils,
-  Vector2,
   WebGLRenderer,
 } from 'three';
 import { media } from '~/utils/style';
@@ -33,7 +32,6 @@ export const DisplacementSphere = props => {
   const { theme } = useTheme();
   const start = useRef(Date.now());
   const canvasRef = useRef();
-  const mouse = useRef();
   const renderer = useRef();
   const camera = useRef();
   const scene = useRef();
@@ -50,14 +48,22 @@ export const DisplacementSphere = props => {
 
   useEffect(() => {
     const { innerWidth, innerHeight } = window;
-    mouse.current = new Vector2(0.8, 0.5);
-    renderer.current = new WebGLRenderer({
-      canvas: canvasRef.current,
-      antialias: false,
-      alpha: true,
-      powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
-    });
+
+    // WebGL can be unavailable (software rendering, hidden tabs, GPU
+    // blocklists). The sphere is decorative — fail quietly, not fatally.
+    try {
+      renderer.current = new WebGLRenderer({
+        canvas: canvasRef.current,
+        antialias: false,
+        alpha: true,
+        powerPreference: 'high-performance',
+        failIfMajorPerformanceCaveat: true,
+      });
+    } catch {
+      renderer.current = null;
+      return;
+    }
+
     renderer.current.setSize(innerWidth, innerHeight);
     renderer.current.setPixelRatio(1);
     renderer.current.outputColorSpace = LinearSRGBColorSpace;
@@ -94,6 +100,8 @@ export const DisplacementSphere = props => {
   }, []);
 
   useEffect(() => {
+    if (!renderer.current) return;
+
     const dirLight = new DirectionalLight(0xffffff, theme === 'light' ? 1.8 : 2.0);
     const ambientLight = new AmbientLight(0xffffff, theme === 'light' ? 2.7 : 0.4);
 
@@ -110,6 +118,8 @@ export const DisplacementSphere = props => {
   }, [theme]);
 
   useEffect(() => {
+    if (!renderer.current) return;
+
     const { width, height } = windowSize;
 
     const adjustedHeight = height + height * 0.3;
@@ -155,6 +165,8 @@ export const DisplacementSphere = props => {
   }, [isInViewport, reduceMotion, rotationX, rotationY]);
 
   useEffect(() => {
+    if (!renderer.current) return;
+
     let animation;
 
     const animate = () => {

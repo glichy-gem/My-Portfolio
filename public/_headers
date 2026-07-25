@@ -1,3 +1,8 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
 /favicon.ico
   Cache-Control: public, max-age=3600, s-maxage=3600
 /favicon.svg
@@ -12,8 +17,6 @@
   Cache-Control: public, max-age=31536000, immutable
 /*.woff2
   Cache-Control: public, max-age=31536000, immutable
-/*.glb
-  Cache-Control: public, max-age=31536000, immutable
 /*.svg
   Cache-Control: public, max-age=31536000, immutable
 /*.jpg
@@ -22,7 +25,3 @@
   Cache-Control: public, max-age=31536000, immutable
 /*.js
   Cache-Control: public, max-age=31536000, immutable
-/*.wasm
-  Cache-Control: public, max-age=31536000, immutable
-https://:project.pages.dev/*
-  X-Robots-Tag: noindex
