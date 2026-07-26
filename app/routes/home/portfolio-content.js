@@ -25,7 +25,7 @@ export const portfolioContent = {
     groups: [
       {
         title: 'Languages & backend',
-        items: ['Python', 'FastAPI', 'PostgreSQL', 'MongoDB'],
+        items: ['Python', 'C++', 'FastAPI', 'PostgreSQL', 'MongoDB', 'Redis'],
       },
       {
         title: 'AI / ML',
@@ -40,6 +40,10 @@ export const portfolioContent = {
           'OCR',
           'Vector Search',
           'FAISS',
+          'AWS AgentCore',
+          'AWS Bedrock',
+          'Azure AI Foundry',
+          'ServiceNow MCP',
         ],
       },
       {
@@ -62,6 +66,7 @@ export const portfolioContent = {
           'Azure Purview',
           'ETL Pipelines',
           'Workflow Automation',
+          'Azure Logic Apps',
         ],
       },
       {
@@ -75,6 +80,7 @@ export const portfolioContent = {
           'Mistral',
           'Ollama',
           'Azure OpenAI',
+          'Groq',
         ],
       },
     ],
