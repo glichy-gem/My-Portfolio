@@ -21,10 +21,6 @@ export const navLinks = [
     label: 'Certifications',
     pathname: '/#certifications',
   },
-  {
-    label: 'Contact',
-    pathname: '/#contact',
-  },
 ];
 
 export const socialLinks = [
@@ -37,5 +33,10 @@ export const socialLinks = [
     label: 'Github',
     url: `https://github.com/${config.github}`,
     icon: 'github',
+  },
+  {
+    label: 'Email',
+    url: 'mailto:shivamyadav22feb@gmail.com',
+    icon: 'email',
   },
 ];

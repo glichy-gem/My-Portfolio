@@ -1,5 +1,4 @@
 import { Icon } from '~/components/icon';
-import { Monogram } from '~/components/monogram';
 import { tokens } from '~/components/theme-provider/theme';
 import { Transition } from '~/components/transition';
 import { useScrollToHash } from '~/hooks';
@@ -8,7 +7,6 @@ import { useEffect, useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { NavToggle } from './nav-toggle';
 import { navLinks, socialLinks } from './nav-data';
-import config from '~/config.json';
 import styles from './navbar.module.css';
 
 export const Navbar = () => {
@@ -60,17 +58,6 @@ export const Navbar = () => {
 
   return (
     <header className={styles.navbar} ref={headerRef}>
-      <RouterLink
-        viewTransition
-        prefetch="intent"
-        to={location.pathname === '/' ? '/#hero' : '/'}
-        data-navbar-item
-        className={styles.logo}
-        aria-label={`${config.name}, ${config.role}`}
-        onClick={handleMobileNavClick}
-      >
-        <Monogram highlight />
-      </RouterLink>
       <NavToggle onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen} />
       <nav className={styles.nav}>
         <div className={styles.navList}>
@@ -89,7 +76,7 @@ export const Navbar = () => {
             </RouterLink>
           ))}
         </div>
-        <NavbarIcons desktop />
+        <SocialIcons desktop />
       </nav>
       <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
         {({ visible, nodeRef }) => (
@@ -113,7 +100,7 @@ export const Navbar = () => {
                 {label}
               </RouterLink>
             ))}
-            <NavbarIcons />
+            <SocialIcons />
           </nav>
         )}
       </Transition>
@@ -121,19 +108,19 @@ export const Navbar = () => {
   );
 };
 
-const NavbarIcons = ({ desktop }) => (
-  <div className={styles.navIcons}>
+const SocialIcons = ({ desktop }) => (
+  <div className={styles.socials}>
     {socialLinks.map(({ label, url, icon }) => (
       <a
         key={label}
         data-navbar-item={desktop || undefined}
-        className={styles.navIconLink}
+        className={styles.socialLink}
         aria-label={label}
         href={url}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={url.startsWith('mailto:') ? undefined : '_blank'}
+        rel={url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
       >
-        <Icon className={styles.navIcon} icon={icon} />
+        <Icon className={styles.socialIcon} icon={icon} />
       </a>
     ))}
   </div>

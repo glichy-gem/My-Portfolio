@@ -62,5 +62,13 @@
   "bluesky": {
     "width": 24,
     "height": 24
+  },
+  "email": {
+    "width": 24,
+    "height": 24
+  },
+  "chat": {
+    "width": 24,
+    "height": 24
   }
 }

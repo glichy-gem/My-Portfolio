@@ -140,27 +140,71 @@ export const portfolioContent = {
     title: 'Certifications',
     items: [
       {
+        name: 'Certificate of completion: Claude 101',
+        issuer: 'Anthropic',
+        year: 'Jun 2026',
+        credentialId: 'dndckhb6ghqd',
+        credentialUrl: 'https://verify.skilljar.com/c/dndckhb6ghqd',
+      },
+      {
+        name: 'Claude Certified Architect — Foundations',
+        issuer: 'Anthropic',
+        year: 'Apr 2026 – Oct 2026',
+        credentialId: 'orhjxr4ysquq',
+        credentialUrl: 'https://verify.skilljar.com/c/orhjxr4ysquq',
+      },
+      {
         name: 'Microsoft Certified: Azure AI Engineer Associate',
         issuer: 'Microsoft',
         year: 'Nov 2025 – Nov 2026',
-        description:
-          'Expertise in designing and deploying AI solutions using Azure AI Services, including NLP, computer vision, and conversational AI.',
-        // Credly, Microsoft Learn transcript, or LinkedIn “Show credential” URL
-        credentialUrl: 'https://learn.microsoft.com/en-gb/users/shivamyadav-3237/credentials/cb58ea3e52bb2254?ref=https%3A%2F%2Fwww.linkedin.com%2F',
+        credentialId: 'CB58EA3E52BB2254',
+        credentialUrl: 'https://learn.microsoft.com/en-gb/users/shivamyadav-3237/credentials/cb58ea3e52bb2254',
       },
       {
         name: 'Aisera AI Workflows (Intermediate Level)',
         issuer: 'Aisera Academy',
         year: 'Mar 2025',
-        description:
-          'Hands-on experience in building AI-driven workflows, automation, and enterprise AI applications.',
-        credentialUrl: 'https://drive.google.com/file/d/1tUqu4aRIXkCh4wKbkVB6kuphrY5HW1aQ/view?usp=drive_link',
+        credentialId: 'OLuTEVwpsA',
+        credentialUrl: 'https://drive.google.com/file/d/1tUqu4aRIXkCh4wKbkVB6kuphrY5HW1aQ/view',
+      },
+      {
+        name: 'Aisera GPT (Basic Level)',
+        issuer: 'Aisera Academy',
+        year: 'Mar 2025',
+        credentialId: 'hb48vokUFA',
+        credentialUrl: 'https://drive.google.com/file/d/1U-yD-uBR_vgteSRu4WOIm6OSrBnNmWSD/view',
+      },
+      {
+        name: 'Entrepreneurial Management',
+        issuer: 'Great Learning',
+        year: 'Jan 2023',
+        credentialId: 'JDCLHIVN',
+        credentialUrl: 'https://www.mygreatlearning.com/certificate/JDCLHIVN',
+      },
+      {
+        name: 'Introduction to Artificial Intelligence',
+        issuer: 'Infosys Springboard',
+        year: 'Jan 2023',
+        credentialUrl: 'https://drive.google.com/file/d/1dlZYkVaisK9S2rP_AEVj5BIgmT1bhT65/view',
+      },
+      {
+        name: 'Cyber Security Hygiene Practices',
+        issuer: 'Ministry of Electronics and Information Technology',
+        year: 'Sep 2022',
+        credentialId: 'MeitY/ISEA/WCHP/017066',
+        credentialUrl: 'https://drive.google.com/file/d/1V8fu2ER6d3q3BWi_RI7J64p_0DzFXg0q/view',
+      },
+      {
+        name: 'Problem Solving',
+        issuer: 'HackerRank',
+        credentialId: '5dd4194be878',
+        credentialUrl: 'https://www.hackerrank.com/certificates/iframe/5dd4194be878',
       },
     ],
   },
 
   contact: {
-    title: 'Contact',
+    title: 'Get in touch',
     intro: 'Reach out to me via email, social media, or the contact form.',
     email: 'shivamyadav22feb@gmail.com',
     linkedinUrl: 'https://www.linkedin.com/in/shivam-yadavv/',

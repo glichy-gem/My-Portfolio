@@ -7,7 +7,7 @@
 }
 
 .inner {
-  max-width: var(--maxWidthL);
+  max-width: 790px;
   width: 100%;
 }
 
