@@ -68,11 +68,20 @@ function Card({ cert }) {
   );
 }
 
+const PINNED_MODAL_NAMES = [
+  'Claude Certified Architect — Foundations',
+  'Microsoft Certified: Azure AI Engineer Associate',
+];
+
 export function CertificationsSection({ id, visible, sectionRef }) {
   const { title, items } = portfolioContent.certifications;
   const titleId = `${id}-title`;
   const modalTitleId = `${id}-modal-title`;
   const [modalOpen, setModalOpen] = useState(false);
+  const modalItems = [
+    ...PINNED_MODAL_NAMES.map(name => items.find(cert => cert.name === name)).filter(Boolean),
+    ...items.filter(cert => !PINNED_MODAL_NAMES.includes(cert.name)),
+  ];
 
   useEffect(() => {
     if (!modalOpen) return;
@@ -177,7 +186,7 @@ export function CertificationsSection({ id, visible, sectionRef }) {
               </header>
               <div className={styles.modalBody}>
                 <div className={styles.modalGrid}>
-                  {items.map(cert => (
+                  {modalItems.map(cert => (
                     <Card key={cert.name} cert={cert} />
                   ))}
                 </div>

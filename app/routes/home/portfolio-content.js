@@ -149,14 +149,14 @@ export const portfolioContent = {
       {
         name: 'Claude Certified Architect — Foundations',
         issuer: 'Anthropic',
-        year: 'Apr 2026 – Oct 2026',
+        year: 'Apr 2026',
         credentialId: 'orhjxr4ysquq',
         credentialUrl: 'https://verify.skilljar.com/c/orhjxr4ysquq',
       },
       {
         name: 'Microsoft Certified: Azure AI Engineer Associate',
         issuer: 'Microsoft',
-        year: 'Nov 2025 – Nov 2026',
+        year: 'Nov 2025',
         credentialId: 'CB58EA3E52BB2254',
         credentialUrl: 'https://learn.microsoft.com/en-gb/users/shivamyadav-3237/credentials/cb58ea3e52bb2254',
       },
