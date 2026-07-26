@@ -50,13 +50,21 @@
   transform: translateY(-28px);
   transition:
     opacity var(--durationL) ease,
-    transform var(--durationL) var(--bezierFastoutSlowin);
-  transition-delay: calc(var(--i, 0) * 450ms + 150ms);
+    transform var(--durationL) var(--bezierFastoutSlowin),
+    border-color var(--durationS) ease,
+    background var(--durationS) ease;
   will-change: transform;
 
   &[data-visible='true'] {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: color-mix(in lab, var(--accent) 40%, transparent);
+    background: color-mix(in lab, var(--accent) 5%, transparent);
+    outline: none;
   }
 }
 

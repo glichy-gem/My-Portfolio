@@ -53,12 +53,13 @@ function renderWithLinks(text) {
 const GREETING = {
   role: 'assistant',
   content:
-    "Hi! I'm an AI assistant that answers questions about Shivam's work using the info on this site. Ask me about his projects, skills, or experience.",
+    "Hi! I'm Shivam's AI assistant — ask about his experience, skills, or projects and I'll answer using this site's content.",
 };
 
 const SUGGESTIONS = [
-  "What's Shivam's strongest project?",
-  'What AI/ML tools has he worked with?',
+  "What's his current experience & role?",
+  'What are his top AI/ML skills?',
+  "What's his most impactful project?",
   'How can I contact him?',
 ];
 

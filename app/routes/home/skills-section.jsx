@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
 import { Heading } from '~/components/heading';
@@ -50,32 +51,73 @@ const GROUP_ICONS = {
   ),
 };
 
-function SkillGroup({ group, visible, index }) {
+function SkillGroup({ group, index, onReveal, groupRef }) {
   const icon = GROUP_ICONS[group.title];
   return (
-    <li className={styles.group} data-visible={visible} style={{ '--i': index }}>
-      <div className={styles.groupHeader}>
-        {icon && <span className={styles.groupIcon}>{icon}</span>}
-        <Text className={styles.groupTitle} size="s" as="h4">
-          {group.title}
-        </Text>
-      </div>
-      <ul className={styles.tags}>
-        {group.items.map((item, i) => (
-          <li key={item} className={styles.tag} style={{ '--i': i }}>
-            <Text size="s" as="span">
-              {item}
+    <Transition in timeout={0} nodeRef={groupRef}>
+      {({ visible, nodeRef }) => (
+        <li
+          className={styles.group}
+          data-visible={visible}
+          ref={nodeRef}
+          tabIndex={0}
+          onMouseEnter={() => onReveal(index)}
+          onFocus={() => onReveal(index)}
+        >
+          <div className={styles.groupHeader}>
+            {icon && <span className={styles.groupIcon}>{icon}</span>}
+            <Text className={styles.groupTitle} size="s" as="h4">
+              {group.title}
             </Text>
-          </li>
-        ))}
-      </ul>
-    </li>
+          </div>
+          <ul className={styles.tags}>
+            {group.items.map((item, i) => (
+              <li key={item} className={styles.tag} style={{ '--i': i }}>
+                <Text size="s" as="span">
+                  {item}
+                </Text>
+              </li>
+            ))}
+          </ul>
+        </li>
+      )}
+    </Transition>
   );
 }
 
 export function SkillsSection({ id, visible, sectionRef }) {
   const { title, groups } = portfolioContent.skills;
   const titleId = `${id}-title`;
+  const [revealedCount, setRevealedCount] = useState(1);
+  const [sectionEntered, setSectionEntered] = useState(false);
+  const frontierRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const noHover = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (noHover) setRevealedCount(groups.length);
+  }, [groups.length]);
+
+  const revealNext = index => {
+    setRevealedCount(prev => Math.min(groups.length, Math.max(prev, index + 2)));
+  };
+
+  useEffect(() => {
+    if (!sectionEntered || revealedCount >= groups.length) return;
+    const node = frontierRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealedCount(prev => Math.min(groups.length, prev + 1));
+        }
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [sectionEntered, revealedCount, groups.length]);
 
   return (
     <Section
@@ -86,7 +128,7 @@ export function SkillsSection({ id, visible, sectionRef }) {
       aria-labelledby={titleId}
       tabIndex={-1}
     >
-      <Transition in={visible} timeout={0}>
+      <Transition in={visible} timeout={0} onEntered={() => setSectionEntered(true)}>
         {({ visible: animVisible, nodeRef }) => (
           <div className={styles.inner} ref={nodeRef}>
             <div className={styles.header}>
@@ -106,16 +148,19 @@ export function SkillsSection({ id, visible, sectionRef }) {
                 <DecoderText text={title} start={animVisible} delay={300} />
               </Heading>
             </div>
-            <ul className={styles.column}>
-              {groups.map((group, index) => (
-                <SkillGroup
-                  key={group.title}
-                  group={group}
-                  visible={animVisible}
-                  index={index}
-                />
-              ))}
-            </ul>
+            {animVisible && (
+              <ul className={styles.column}>
+                {groups.slice(0, revealedCount).map((group, index) => (
+                  <SkillGroup
+                    key={group.title}
+                    group={group}
+                    index={index}
+                    onReveal={revealNext}
+                    groupRef={index === revealedCount - 1 ? frontierRef : undefined}
+                  />
+                ))}
+              </ul>
+            )}
           </div>
         )}
       </Transition>

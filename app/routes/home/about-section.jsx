@@ -11,7 +11,6 @@ import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
 import { Fragment, useState } from 'react';
 import { media } from '~/utils/style';
-import katakana from './katakana.svg';
 import { portfolioContent } from './portfolio-content';
 import styles from './about-section.module.css';
 
@@ -85,9 +84,6 @@ export function AboutSection({ id, visible, sectionRef }) {
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}
                   alt={portfolioContent.about.imageAlt}
                 />
-                <svg className={styles.svg} data-visible={animVisible} viewBox="0 0 136 766">
-                  <use href={`${katakana}#katakana-profile`} />
-                </svg>
               </div>
             </div>
           </div>
