@@ -50,10 +50,10 @@ const GROUP_ICONS = {
   ),
 };
 
-function SkillGroup({ group, visible }) {
+function SkillGroup({ group, visible, index }) {
   const icon = GROUP_ICONS[group.title];
   return (
-    <li className={styles.group} data-visible={visible}>
+    <li className={styles.group} data-visible={visible} style={{ '--i': index }}>
       <div className={styles.groupHeader}>
         {icon && <span className={styles.groupIcon}>{icon}</span>}
         <Text className={styles.groupTitle} size="s" as="h4">
@@ -76,8 +76,6 @@ function SkillGroup({ group, visible }) {
 export function SkillsSection({ id, visible, sectionRef }) {
   const { title, groups } = portfolioContent.skills;
   const titleId = `${id}-title`;
-  const leftGroups = groups.filter((_, i) => i % 2 === 0);
-  const rightGroups = groups.filter((_, i) => i % 2 === 1);
 
   return (
     <Section
@@ -108,18 +106,16 @@ export function SkillsSection({ id, visible, sectionRef }) {
                 <DecoderText text={title} start={animVisible} delay={300} />
               </Heading>
             </div>
-            <div className={styles.columns}>
-              <ul className={styles.column}>
-                {leftGroups.map(group => (
-                  <SkillGroup key={group.title} group={group} visible={animVisible} />
-                ))}
-              </ul>
-              <ul className={styles.column}>
-                {rightGroups.map(group => (
-                  <SkillGroup key={group.title} group={group} visible={animVisible} />
-                ))}
-              </ul>
-            </div>
+            <ul className={styles.column}>
+              {groups.map((group, index) => (
+                <SkillGroup
+                  key={group.title}
+                  group={group}
+                  visible={animVisible}
+                  index={index}
+                />
+              ))}
+            </ul>
           </div>
         )}
       </Transition>
