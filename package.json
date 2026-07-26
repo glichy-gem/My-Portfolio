@@ -11,10 +11,7 @@
     "dev": "node ./scripts/dev.cjs",
     "start": "wrangler pages dev ./build/client",
     "deploy": "npm run build && wrangler pages deploy ./build/client --project-name portfolio",
-    "deploy:pages": "wrangler pages deploy ./build/client",
-    "dev:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
-    "deploy:storybook": "wrangler pages deploy ./storybook-static --project-name portfolio-storybook --branch main"
+    "deploy:pages": "wrangler pages deploy ./build/client"
   },
   "dependencies": {
     "@remix-run/cloudflare": "^2.7.1",
@@ -30,24 +27,14 @@
   "devDependencies": {
     "@csstools/postcss-global-data": "^2.1.1",
     "@remix-run/dev": "^2.7.1",
-    "@storybook/addon-a11y": "^7.6.17",
-    "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-interactions": "^7.6.17",
-    "@storybook/addon-links": "^7.6.17",
-    "@storybook/blocks": "^7.6.17",
-    "@storybook/react": "^7.6.17",
-    "@storybook/react-vite": "^7.6.17",
-    "@storybook/test": "^7.6.17",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.33",
     "postcss-custom-media": "^10.0.2",
-    "storybook": "^7.6.17",
     "vite": "^5.1.0",
     "vite-jsconfig-paths": "^2.0.1"
   },
