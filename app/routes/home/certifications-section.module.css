@@ -120,17 +120,14 @@
   color: var(--textBody);
   text-decoration: none;
   opacity: 0;
-  transform: translateX(48px);
   transition:
     opacity var(--durationL) ease,
-    transform var(--durationL) var(--bezierFastoutSlowin),
+    transform var(--durationS) var(--bezierFastoutSlowin),
     border-color var(--durationS) ease,
     box-shadow var(--durationS) ease;
-  will-change: transform;
 
   &[data-visible='true'] {
     opacity: 1;
-    transform: translateX(0);
   }
 }
 
@@ -249,15 +246,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
-    transform: none;
-    transition: opacity var(--durationL) ease;
-  }
-
-  .card[data-visible='true'] {
-    transform: none;
-  }
-
   .cardLink:hover,
   .cardLink:focus-visible {
     transform: none;
