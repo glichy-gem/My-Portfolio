@@ -1,11 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <style>
-    #favicon {
-      fill: #111;
-      @media (prefers-color-scheme: dark) {
-        fill: #fff;
-      }
-    }
-  </style>
-  <path id="favicon" d="M3.03 14h7.8a7.24 7.24 0 0 1 6.34 3.74l9.25 16.78 4.87-10.86L25.97 14h7.79a7.24 7.24 0 0 1 6.34 3.74l10.59 19.2L45.28 49 32.62 26.07 22.34 49 3.04 14Zm56.41 3.4a2.4 2.4 0 0 0-2.2-3.4H48.9l6.66 12.07 3.88-8.67Z"/>
+  <path d="M0 0h64v50L50 64H0z" fill="#22d3ee"/>
+  <g fill="none" stroke="#0a0a0a" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27 24.2C27 20.4 23.6 18.8 19.6 18.8C15.6 18.8 11.4 20.6 11.4 24.4C11.4 28.2 15.2 30 19 31.2C23 32.5 27 34.4 27 38.4C27 42.4 23.4 45.2 19.2 45.2C15.4 45.2 12.4 43.6 11.4 41.2"/>
+    <path d="M37 18.8L45 32.6L53 18.8"/>
+    <path d="M45 32.6V45.2"/>
+  </g>
 </svg>
