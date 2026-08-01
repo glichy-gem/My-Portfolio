@@ -76,11 +76,64 @@
   font-weight: var(--fontWeightBold);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.resumeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 26px;
+  font-family: 'Space Grotesk', var(--fontStack);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #0a0a0a;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  opacity: 0;
+  transition:
+    opacity var(--durationXL) ease var(--durationL),
+    background var(--durationS) ease,
+    box-shadow var(--durationS) ease,
+    transform var(--durationS) var(--bezierFastoutSlowin);
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.resumeButton:hover,
+.resumeButton:focus-visible {
+  background: color-mix(in lab, var(--accent) 80%, white);
+  box-shadow: 0 12px 32px color-mix(in lab, var(--accent) 28%, transparent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.resumeGlyph {
+  font-size: 15px;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resumeButton:hover,
+  .resumeButton:focus-visible {
+    transform: none;
+  }
+}
+
 .cta {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 12px;
   font-family: 'Space Grotesk', var(--fontStack);
   font-size: 15px;
   font-weight: 600;

@@ -18,6 +18,8 @@ export const portfolioContent = {
       'I enjoy solving problems across AI products, backend services, information retrieval, workflows, and system design using modern cloud, data, and application technologies. Outside of work, I also enjoy playing football, which reflects my interest in teamwork, discipline, and consistency.',
     ],
     imageAlt: 'Shivam Yadav — AI/ML Engineer.',
+    resumeUrl: '/resume.pdf',
+    resumeFileName: 'Shivam-Yadav-Resume.pdf',
   },
 
   skills: {

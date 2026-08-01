@@ -21,7 +21,7 @@ function emphasize(text) {
 }
 
 function AboutText({ visible, titleId }) {
-  const { title, paragraphs } = portfolioContent.about;
+  const { title, paragraphs, resumeUrl, resumeFileName } = portfolioContent.about;
 
   return (
     <Fragment>
@@ -42,17 +42,30 @@ function AboutText({ visible, titleId }) {
           {emphasize(p)}
         </Text>
       ))}
-      <Link
-        to="/contact"
-        prefetch="intent"
-        className={styles.cta}
-        data-visible={visible}
-      >
-        <span className={styles.ctaGlyph} aria-hidden="true">
-          ➤
-        </span>
-        Get in touch
-      </Link>
+      <div className={styles.actions}>
+        <a
+          className={styles.resumeButton}
+          data-visible={visible}
+          href={resumeUrl}
+          download={resumeFileName}
+        >
+          <span className={styles.resumeGlyph} aria-hidden="true">
+            ↓
+          </span>
+          Download resume
+        </a>
+        <Link
+          to="/contact"
+          prefetch="intent"
+          className={styles.cta}
+          data-visible={visible}
+        >
+          <span className={styles.ctaGlyph} aria-hidden="true">
+            ➤
+          </span>
+          Get in touch
+        </Link>
+      </div>
     </Fragment>
   );
 }
