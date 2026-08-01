@@ -121,7 +121,7 @@
   text-decoration: none;
   opacity: 0;
   transition:
-    opacity var(--durationL) ease,
+    opacity var(--durationL) ease var(--revealDelay, 0ms),
     transform var(--durationS) var(--bezierFastoutSlowin),
     border-color var(--durationS) ease,
     box-shadow var(--durationS) ease;

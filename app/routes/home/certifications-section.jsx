@@ -38,7 +38,7 @@ function Card({ cert, visible, index }) {
     <Wrap
       className={classes(styles.card, hasLink && styles.cardLink)}
       data-visible={visible}
-      style={index != null ? { transitionDelay: `${index * 80}ms` } : undefined}
+      style={index != null ? { '--revealDelay': `${index * 80}ms` } : undefined}
       {...wrapProps}
     >
       <div className={styles.cardBar} />
