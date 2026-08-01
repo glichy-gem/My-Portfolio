@@ -21,6 +21,10 @@ export const navLinks = [
     label: 'Certifications',
     pathname: '/#certifications',
   },
+  {
+    label: 'Articles',
+    pathname: '/#articles',
+  },
 ];
 
 export const socialLinks = [

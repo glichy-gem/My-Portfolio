@@ -1,16 +1,17 @@
 @layer layout {
   .toggle {
-    --offset: var(--spaceXS);
-    --inset: calc(var(--spaceOuter) - var(--offset));
-
     position: fixed;
-    top: var(--inset);
-    right: var(--inset);
+    top: var(--spaceXS);
+    right: var(--spaceL);
     z-index: var(--zIndex4);
-    display: none;
+    display: flex;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
 
-    @media (--mediaMobile), (--mediaMobileLS) {
-      display: flex;
+    &::after {
+      clip-path: none;
+      border-radius: 8px;
     }
   }
 

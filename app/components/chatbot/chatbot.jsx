@@ -76,9 +76,14 @@ export const Chatbot = () => {
   const capped = userMessageCount >= MAX_MESSAGES;
 
   useEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTop = listRef.current.scrollHeight;
+    if (!listRef.current) return;
+    // Keep the greeting + suggestions anchored at the top when the chat opens;
+    // only follow the bottom once a real conversation is underway.
+    if (messages.length <= 1 && !pending) {
+      listRef.current.scrollTop = 0;
+      return;
     }
+    listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages, pending, open]);
 
   useEffect(() => {
@@ -180,6 +185,7 @@ export const Chatbot = () => {
             <header className={styles.header}>
               <div>
                 <Text size="s" weight="medium" as="h2" className={styles.headerTitle}>
+                  <span className={styles.statusDot} aria-hidden="true" />
                   Ask about Shivam's work
                 </Text>
                 <Text size="xs" secondary as="p" className={styles.headerSubtitle}>
@@ -225,6 +231,7 @@ export const Chatbot = () => {
               )}
               {messages.length === 1 && !pending && (
                 <div className={styles.suggestions}>
+                  <span className={styles.suggestionsLabel}>Suggested</span>
                   {SUGGESTIONS.map(s => (
                     <button
                       key={s}
@@ -232,7 +239,10 @@ export const Chatbot = () => {
                       className={styles.suggestion}
                       onClick={() => send(s)}
                     >
-                      {s}
+                      <span>{s}</span>
+                      <span className={styles.suggestionArrow} aria-hidden="true">
+                        ↗
+                      </span>
                     </button>
                   ))}
                 </div>

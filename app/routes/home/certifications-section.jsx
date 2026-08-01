@@ -21,7 +21,7 @@ const ISSUER_LOGOS = {
   HackerRank: '/logos/hackerrank.svg',
 };
 
-function Card({ cert }) {
+function Card({ cert, visible, index }) {
   const hasLink = !!cert.credentialUrl;
   const Wrap = hasLink ? 'a' : 'div';
   const wrapProps = hasLink
@@ -35,34 +35,42 @@ function Card({ cert }) {
   const logoSrc = ISSUER_LOGOS[cert.issuer];
 
   return (
-    <Wrap className={classes(styles.card, hasLink && styles.cardLink)} {...wrapProps}>
-      <div className={styles.cardBody}>
+    <Wrap
+      className={classes(styles.card, hasLink && styles.cardLink)}
+      data-visible={visible}
+      style={index != null ? { transitionDelay: `${index * 80}ms` } : undefined}
+      {...wrapProps}
+    >
+      <div className={styles.cardBar} />
+      <div className={styles.cardMeta}>
         {logoSrc ? (
           <div className={styles.cardLogo}>
             <img src={logoSrc} alt="" loading="lazy" />
           </div>
-        ) : null}
-        <Text size="s" weight="medium" as="p" className={styles.cardName}>
-          {cert.name}
-        </Text>
-        <Text secondary size="xs" as="p" className={styles.cardIssuer}>
-          {cert.issuer}
-        </Text>
+        ) : <span />}
         {cert.year ? (
-          <Text secondary size="xs" as="p" className={styles.cardYear}>
+          <Text secondary size="xs" as="span" className={styles.cardYear}>
             {cert.year}
           </Text>
         ) : null}
       </div>
+      <Heading className={styles.cardTitle} level={4} as="h3">
+        {cert.name}
+      </Heading>
+      <Text secondary size="s" as="p" className={styles.cardIssuer}>
+        {cert.issuer}
+      </Text>
       <div className={styles.cardFooter}>
         {cert.credentialId ? (
           <Text secondary size="xs" as="span" className={styles.cardId}>
             ID · {cert.credentialId}
           </Text>
-        ) : (
-          <span />
-        )}
-        {hasLink ? <Icon className={styles.cardLinkIcon} icon="link" /> : null}
+        ) : <span />}
+        {hasLink ? (
+          <span className={styles.cardVerify}>
+            Verify <span className={styles.arrow}>↗</span>
+          </span>
+        ) : null}
       </div>
     </Wrap>
   );
@@ -74,7 +82,7 @@ const PINNED_MODAL_NAMES = [
 ];
 
 export function CertificationsSection({ id, visible, sectionRef }) {
-  const { title, items } = portfolioContent.certifications;
+  const { title, subtitle, items } = portfolioContent.certifications;
   const titleId = `${id}-title`;
   const modalTitleId = `${id}-modal-title`;
   const [modalOpen, setModalOpen] = useState(false);
@@ -116,40 +124,33 @@ export function CertificationsSection({ id, visible, sectionRef }) {
                 collapsed={!animVisible}
                 collapseDelay={400}
               />
-              <Heading className={styles.heading} level={3} id={titleId} data-visible={animVisible}>
-                <button
-                  type="button"
-                  className={styles.headingButton}
-                  onClick={() => setModalOpen(true)}
-                  aria-haspopup="dialog"
-                  aria-expanded={modalOpen}
-                  aria-label={`${title} — view all`}
-                >
-                  <DecoderText text={title} start={animVisible} delay={300} />
-                  <span className={styles.headingHint} aria-hidden="true">
-                    View all
-                  </span>
-                </button>
-              </Heading>
-            </div>
-            <div
-              className={styles.marquee}
-              data-visible={animVisible}
-              role="region"
-              aria-label="Certifications carousel"
-            >
-              <div className={styles.viewport}>
-                <div className={styles.track}>
-                  {items.map(cert => (
-                    <Card key={cert.name} cert={cert} />
-                  ))}
-                </div>
-                <div className={styles.track} aria-hidden="true">
-                  {items.map(cert => (
-                    <Card key={`dup-${cert.name}`} cert={cert} />
-                  ))}
-                </div>
+              <div className={styles.headingRow}>
+                <Heading className={styles.heading} level={3} id={titleId} data-visible={animVisible}>
+                  <button
+                    type="button"
+                    className={styles.headingButton}
+                    onClick={() => setModalOpen(true)}
+                    aria-haspopup="dialog"
+                    aria-expanded={modalOpen}
+                    aria-label={`${title} — view all`}
+                  >
+                    <DecoderText text={title} start={animVisible} delay={300} />
+                    <span className={styles.headingHint} aria-hidden="true">
+                      View all ({items.length})
+                    </span>
+                  </button>
+                </Heading>
+                {subtitle ? (
+                  <Text as="p" className={styles.subtitle} data-visible={animVisible}>
+                    {subtitle}
+                  </Text>
+                ) : null}
               </div>
+            </div>
+            <div className={styles.grid}>
+              {items.slice(0, 6).map((cert, index) => (
+                <Card key={cert.name} cert={cert} visible={animVisible} index={index} />
+              ))}
             </div>
           </div>
         )}
@@ -187,7 +188,7 @@ export function CertificationsSection({ id, visible, sectionRef }) {
               <div className={styles.modalBody}>
                 <div className={styles.modalGrid}>
                   {modalItems.map(cert => (
-                    <Card key={cert.name} cert={cert} />
+                    <Card key={cert.name} cert={cert} visible={true} />
                   ))}
                 </div>
               </div>

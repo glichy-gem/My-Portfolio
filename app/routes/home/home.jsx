@@ -9,6 +9,7 @@ import { ExperienceSection } from './experience-section';
 import { HeroSection } from './hero-section';
 import { ProjectsSection } from './projects-section';
 import { SkillsSection } from './skills-section';
+import { ArticlesSection } from './articles-section';
 import styles from './home.module.css';
 
 export const meta = () => {
@@ -29,6 +30,7 @@ export const Home = () => {
   const projects = useRef();
   const experience = useRef();
   const certifications = useRef();
+  const articles = useRef();
   const contact = useRef();
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export const Home = () => {
       projects,
       experience,
       certifications,
+      articles,
       contact,
     ];
 
@@ -110,6 +113,11 @@ export const Home = () => {
         id="certifications"
         sectionRef={certifications}
         visible={isVisible(certifications)}
+      />
+      <ArticlesSection
+        id="articles"
+        sectionRef={articles}
+        visible={isVisible(articles)}
       />
       <ContactSection
         id="contact"

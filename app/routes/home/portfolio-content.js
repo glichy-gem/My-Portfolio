@@ -22,6 +22,7 @@ export const portfolioContent = {
 
   skills: {
     title: 'Skills',
+    subtitle: 'Tools I reach for every day',
     groups: [
       {
         title: 'Languages & backend',
@@ -89,9 +90,10 @@ export const portfolioContent = {
 
   projects: {
     title: 'Projects',
+    subtitle: "Systems I've designed & shipped",
     items: [
       {
-        title: 'AutoScrum - AI Powered Workflow Automation System.',
+        title: 'AutoScrum — AI-Powered Workflow Automation System',
         problem:
           'Manual Scrum workflows (requirement analysis, story creation, task allocation) are time-intensive and prone to inefficiencies.',
         solution:
@@ -116,35 +118,61 @@ export const portfolioContent = {
 
   experience: {
     title: 'Experience',
+    subtitle: 'Building production AI systems at scale',
     roles: [
       {
         title: 'Associate Software Engineer (AI/ML)',
         company: 'Unisys',
-        period: 'Jul 2024 — Present · Bengaluru',
+        period: 'Jul 2024 — Present',
+        location: 'Bengaluru',
         contributions: [
           'Built AI-powered solutions using Semantic RAG, Azure Cognitive Search, NLP, and Multilingual AI for legal and education-focused use cases, improving retrieval efficiency by ~60% and learning outcomes by ~40%.',
           'Developed production-grade AI/ML and ETL pipelines with Python, FastAPI, PostgreSQL, ADF, Synapse, Databricks, and Purview for scalable and governed deployment.',
           'Designed monitoring dashboards using Elasticsearch and OpenSearch to track performance and operational metrics for 460K+ users.',
           'Built a multimodal RAG system for law enforcement applications, supporting audio, video, image, and document intelligence with real-time identification across 100K+ records.',
         ],
-        techStack:
-          'Python, FastAPI, Generative AI, AI Agents, RAG, Multimodal AI, Vector Search, OCR, Azure, AWS, Databricks, Elasticsearch, OpenSearch, Kibana.',
+        stack: [
+          'Python',
+          'FastAPI',
+          'Generative AI',
+          'AI Agents',
+          'RAG',
+          'Multimodal AI',
+          'Vector Search',
+          'OCR',
+          'Azure',
+          'AWS',
+          'Databricks',
+          'Elasticsearch',
+          'OpenSearch',
+          'Kibana',
+        ],
       },
       {
         title: 'Student Technical Intern (AI/ML)',
         company: 'Unisys',
-        period: 'Jan 2024 — Jul 2024 · Bengaluru',
+        period: 'Jan 2024 — Jul 2024',
+        location: 'Bengaluru',
         contributions: [
           'Enhanced ingestion and retrieval workflows using Azure Form Recognizer, OCR, semantic chunking, and open-source LLMs.',
           'Optimized inference pipelines with LLaMA, Mistral, and Ollama, reducing model inference cost by ~40%.',
         ],
-        techStack: 'Azure Form Recognizer, OCR, Semantic Chunking, LLaMA, Mistral, Ollama, Python.',
+        stack: [
+          'Azure Form Recognizer',
+          'OCR',
+          'Semantic Chunking',
+          'LLaMA',
+          'Mistral',
+          'Ollama',
+          'Python',
+        ],
       },
     ],
   },
 
   certifications: {
     title: 'Certifications',
+    subtitle: 'Verified credentials in AI & engineering',
     items: [
       {
         name: 'Certificate of completion: Claude 101',
@@ -204,17 +232,43 @@ export const portfolioContent = {
       {
         name: 'Problem Solving',
         issuer: 'HackerRank',
+        year: '2023',
         credentialId: '5dd4194be878',
         credentialUrl: 'https://www.hackerrank.com/certificates/iframe/5dd4194be878',
       },
     ],
   },
 
+  articles: {
+    title: 'Articles',
+    subtitle: 'Long-form pieces on AI systems, agents & infrastructure',
+    items: [
+      {
+        title: 'Your AI Has Amnesia. Redis Iris Just Fixed the Most Annoying Problem in AI',
+        summary:
+          "LLMs have no built-in memory — every message looks like a first interaction. This piece breaks down how Redis Iris's unified context layer (Agent Memory, LangCache, Context Retriever) plus semantic caching gives AI agents real memory while cutting redundant token costs.",
+        source: 'MEDIUM',
+        readTime: '9 min read',
+        url: 'https://medium.com/@shivamyadav22aug/your-ai-has-amnesia-redis-iris-just-fixed-the-most-annoying-problem-in-ai-309fb3168829',
+      },
+      {
+        title: "Claude Code Is Powerful. Without These 7 Skills, It's Also Unreliable",
+        summary:
+          'Seven practical skills — Skill Creator, Superpowers, GSD, review commands, Context Mode, Claude Mem, and Frontend Design — that turn Claude Code from a capable-but-inconsistent assistant into a reliable, production-grade coding partner.',
+        source: 'MEDIUM',
+        readTime: '9 min read',
+        url: 'https://medium.com/@shivamyadav22aug/claude-code-is-powerful-without-these-7-skills-its-also-unreliable-04d56b5ed7a9',
+      },
+    ],
+  },
+
   contact: {
     title: 'Get in touch',
-    intro: 'Reach out to me via email, social media, or the contact form.',
+    subtitle: 'Email, social, or the contact form',
     email: 'shivamyadav22feb@gmail.com',
     linkedinUrl: 'https://www.linkedin.com/in/shivam-yadavv/',
+    linkedinLabel: 'Shivam Yadav',
     githubUrl: 'https://github.com/glichy-gem',
+    githubLabel: 'View my code',
   },
 };

@@ -2,7 +2,6 @@ import { Button } from '~/components/button';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
 import { Heading } from '~/components/heading';
-import { Link } from '~/components/link';
 import { Section } from '~/components/section';
 import { Text } from '~/components/text';
 import { Transition } from '~/components/transition';
@@ -10,9 +9,42 @@ import { portfolioContent } from './portfolio-content';
 import styles from './contact-section.module.css';
 
 export function ContactSection({ id, visible, sectionRef }) {
-  const { title, intro, email, linkedinUrl, githubUrl } = portfolioContent.contact;
+  const {
+    title,
+    subtitle,
+    email,
+    linkedinUrl,
+    linkedinLabel,
+    githubUrl,
+    githubLabel,
+  } = portfolioContent.contact;
   const titleId = `${id}-title`;
-  const mailto = email ? `mailto:${email}` : '';
+
+  const cards = [
+    email && {
+      key: 'email',
+      label: 'Email',
+      value: email,
+      href: `mailto:${email}`,
+      cta: 'Write to me',
+    },
+    linkedinUrl && {
+      key: 'linkedin',
+      label: 'LinkedIn',
+      value: linkedinLabel || 'Connect',
+      href: linkedinUrl,
+      cta: 'Connect',
+      external: true,
+    },
+    githubUrl && {
+      key: 'github',
+      label: 'GitHub',
+      value: githubLabel || 'View my code',
+      href: githubUrl,
+      cta: 'Follow',
+      external: true,
+    },
+  ].filter(Boolean);
 
   return (
     <Section
@@ -34,40 +66,52 @@ export function ContactSection({ id, visible, sectionRef }) {
                 collapsed={!animVisible}
                 collapseDelay={400}
               />
-              <Heading className={styles.heading} level={3} id={titleId} data-visible={animVisible}>
-                <DecoderText text={title} start={animVisible} delay={300} />
-              </Heading>
+              <div className={styles.headingRow}>
+                <Heading className={styles.heading} level={3} id={titleId} data-visible={animVisible}>
+                  <DecoderText text={title} start={animVisible} delay={300} />
+                </Heading>
+                {subtitle ? (
+                  <Text as="p" className={styles.subtitle} data-visible={animVisible}>
+                    {subtitle}
+                  </Text>
+                ) : null}
+              </div>
             </div>
-            <Text className={styles.intro} size="l" as="p" data-visible={animVisible}>
-              {intro}
-            </Text>
-            <ul className={styles.links} data-visible={animVisible}>
-              {email ? (
-                <li>
-                  <Link href={mailto}>{email}</Link>
-                </li>
-              ) : null}
-              {linkedinUrl ? (
-                <li>
-                  <Link href={linkedinUrl}>LinkedIn</Link>
-                </li>
-              ) : null}
-              {githubUrl ? (
-                <li>
-                  <Link href={githubUrl}>GitHub</Link>
-                </li>
-              ) : null}
-            </ul>
-            <Button
-              className={styles.formCta}
-              data-visible={animVisible}
-              secondary
-              iconHoverShift
-              href="/contact"
-              icon="send"
-            >
-              Open contact form
-            </Button>
+            <div className={styles.grid}>
+              {cards.map((card, index) => (
+                <a
+                  key={card.key}
+                  className={styles.card}
+                  data-visible={animVisible}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                  href={card.href}
+                  target={card.external ? '_blank' : undefined}
+                  rel={card.external ? 'noopener noreferrer' : undefined}
+                >
+                  <div className={styles.cardBar} />
+                  <Text as="span" className={styles.cardLabel}>
+                    {card.label}
+                  </Text>
+                  <Text as="p" className={styles.cardValue}>
+                    {card.value}
+                  </Text>
+                  <span className={styles.cardCta}>
+                    {card.cta} <span className={styles.arrow}>{card.external ? '↗' : '→'}</span>
+                  </span>
+                </a>
+              ))}
+            </div>
+            <div className={styles.ctaRow}>
+              <Button
+                className={styles.formCta}
+                data-visible={animVisible}
+                iconHoverShift
+                href="/contact"
+                icon="send"
+              >
+                Open contact form
+              </Button>
+            </div>
           </div>
         )}
       </Transition>

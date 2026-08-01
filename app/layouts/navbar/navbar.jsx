@@ -59,25 +59,6 @@ export const Navbar = () => {
   return (
     <header className={styles.navbar} ref={headerRef}>
       <NavToggle onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen} />
-      <nav className={styles.nav}>
-        <div className={styles.navList}>
-          {navLinks.map(({ label, pathname }) => (
-            <RouterLink
-              viewTransition
-              prefetch="intent"
-              to={pathname}
-              key={label}
-              data-navbar-item
-              className={styles.navLink}
-              aria-current={getCurrent(pathname)}
-              onClick={handleNavItemClick}
-            >
-              {label}
-            </RouterLink>
-          ))}
-        </div>
-        <SocialIcons desktop />
-      </nav>
       <Transition unmount in={menuOpen} timeout={msToNum(tokens.base.durationL)}>
         {({ visible, nodeRef }) => (
           <nav className={styles.mobileNav} data-visible={visible} ref={nodeRef}>

@@ -66,14 +66,14 @@
     right: var(--spaceL);
     width: 380px;
     max-width: calc(100vw - var(--spaceL) * 2);
-    height: 600px;
+    height: 648px;
     max-height: calc(100vh - var(--spaceL) * 2 - 72px);
     display: flex;
     flex-direction: column;
-    background: color-mix(in lab, var(--background) 92%, var(--text) 8%);
-    border: 1px solid color-mix(in lab, var(--text) 12%, transparent);
+    background: #0a0a0a;
+    border: 1px solid #232323;
     border-radius: 12px;
-    box-shadow: 0 24px 60px color-mix(in lab, black 60%, transparent);
+    box-shadow: 0 24px 60px color-mix(in lab, black 70%, transparent);
     z-index: var(--zIndex4);
     opacity: 0;
     transform: translateY(12px) scale(0.98);
@@ -82,6 +82,17 @@
       opacity var(--durationM) ease,
       transform var(--durationM) var(--bezierFastoutSlowin);
     overflow: hidden;
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    z-index: 1;
   }
 
   .panel[data-visible='true'] {
@@ -110,36 +121,52 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: var(--spaceM) var(--spaceL);
-    border-bottom: 1px solid color-mix(in lab, var(--text) 10%, transparent);
+    border-bottom: 1px solid #1f1f1f;
     flex-shrink: 0;
   }
 
   .headerTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: 0;
-    color: var(--text);
+    color: #f5f5f5;
+  }
+
+  .statusDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2ec76f;
+    box-shadow: 0 0 8px color-mix(in lab, #2ec76f 60%, transparent);
+    flex-shrink: 0;
   }
 
   .headerSubtitle {
     margin: 2px 0 0;
+    color: #8a8a8a;
   }
 
   .closeButton {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    background: transparent;
-    border: none;
-    color: var(--textLight);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    color: #9a9a9a;
     cursor: pointer;
-    transition: color var(--durationS) ease, background var(--durationS) ease;
+    transition:
+      color var(--durationS) ease,
+      border-color var(--durationS) ease,
+      background var(--durationS) ease;
   }
 
   .closeButton:hover {
-    color: var(--text);
-    background: color-mix(in lab, var(--text) 8%, transparent);
+    color: var(--accent);
+    border-color: color-mix(in lab, var(--accent) 50%, transparent);
   }
 
   .messages {
@@ -191,17 +218,17 @@
 
   .bubbleUser {
     align-self: flex-end;
-    background: color-mix(in lab, var(--accent) 22%, var(--background));
-    color: var(--text);
+    background: color-mix(in lab, var(--accent) 16%, #101012);
+    color: #f2f2f2;
     border: 1px solid color-mix(in lab, var(--accent) 40%, transparent);
     border-bottom-right-radius: 4px;
   }
 
   .bubbleAssistant {
     align-self: flex-start;
-    background: color-mix(in lab, var(--text) 6%, transparent);
-    color: var(--textBody);
-    border: 1px solid color-mix(in lab, var(--text) 10%, transparent);
+    background: linear-gradient(160deg, #161616 0%, #111113 100%);
+    color: #c5c5c5;
+    border: 1px solid #232323;
     border-bottom-left-radius: 4px;
   }
 
@@ -247,61 +274,88 @@
   .suggestions {
     display: flex;
     flex-direction: column;
-    gap: var(--spaceXS);
-    margin-top: var(--spaceS);
+    gap: var(--spaceS);
+    margin-top: 12px;
+  }
+
+  .suggestionsLabel {
+    font-family: 'Space Grotesk', var(--fontStack);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6a6a6a;
+    margin-bottom: 2px;
   }
 
   .suggestion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
     text-align: left;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: transparent;
-    border: 1px solid color-mix(in lab, var(--text) 14%, transparent);
-    color: var(--textBody);
+    padding: 11px 14px;
+    border-radius: 8px;
+    background: #141414;
+    border: 1px solid #232323;
+    color: #d0d0d0;
     font: inherit;
     font-size: 14px;
     cursor: pointer;
     transition:
       color var(--durationS) ease,
-      background var(--durationS) ease,
       border-color var(--durationS) ease;
   }
 
+  .suggestionArrow {
+    color: var(--accent);
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: transform var(--durationS) ease;
+  }
+
   .suggestion:hover {
-    color: var(--text);
-    background: color-mix(in lab, var(--accent) 8%, transparent);
-    border-color: color-mix(in lab, var(--accent) 50%, transparent);
+    color: #ffffff;
+    border-color: color-mix(in lab, var(--accent) 45%, transparent);
+  }
+
+  .suggestion:hover .suggestionArrow {
+    transform: translate(2px, -2px);
   }
 
   .inputRow {
     display: flex;
     align-items: flex-end;
     gap: var(--spaceS);
-    padding: var(--spaceS) var(--spaceL);
-    border-top: 1px solid color-mix(in lab, var(--text) 10%, transparent);
+    padding: var(--spaceM) var(--spaceL) var(--spaceS);
+    border-top: 1px solid #1f1f1f;
     flex-shrink: 0;
   }
 
   .textarea {
     flex: 1 1 auto;
     resize: none;
-    min-height: 40px;
+    min-height: 44px;
     max-height: 120px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: color-mix(in lab, var(--text) 4%, transparent);
-    border: 1px solid color-mix(in lab, var(--text) 12%, transparent);
-    color: var(--text);
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    color: #f2f2f2;
     font: inherit;
     font-size: 14px;
     line-height: 1.4;
     transition: border-color var(--durationS) ease, background var(--durationS) ease;
   }
 
+  .textarea::placeholder {
+    color: #6a6a6a;
+  }
+
   .textarea:focus {
     outline: none;
     border-color: color-mix(in lab, var(--accent) 60%, transparent);
-    background: color-mix(in lab, var(--text) 6%, transparent);
+    background: #161616;
   }
 
   .textarea:disabled {
@@ -310,14 +364,14 @@
   }
 
   .sendButton {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 10px;
     background: var(--accent);
-    color: var(--background);
+    color: #0a0a0a;
     border: none;
     cursor: pointer;
     flex-shrink: 0;
@@ -343,8 +397,8 @@
   }
 
   .footer {
-    padding: 4px var(--spaceL) var(--spaceS);
-    text-align: right;
+    padding: 4px var(--spaceL) var(--spaceM);
+    text-align: center;
     flex-shrink: 0;
   }
 }

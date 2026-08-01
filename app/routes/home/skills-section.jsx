@@ -86,7 +86,7 @@ function SkillGroup({ group, index, onReveal, groupRef }) {
 }
 
 export function SkillsSection({ id, visible, sectionRef }) {
-  const { title, groups } = portfolioContent.skills;
+  const { title, subtitle, groups } = portfolioContent.skills;
   const titleId = `${id}-title`;
   const [revealedCount, setRevealedCount] = useState(1);
   const [sectionEntered, setSectionEntered] = useState(false);
@@ -139,14 +139,21 @@ export function SkillsSection({ id, visible, sectionRef }) {
                 collapsed={!animVisible}
                 collapseDelay={400}
               />
-              <Heading
-                className={styles.heading}
-                level={3}
-                id={titleId}
-                data-visible={animVisible}
-              >
-                <DecoderText text={title} start={animVisible} delay={300} />
-              </Heading>
+              <div className={styles.headingRow}>
+                <Heading
+                  className={styles.heading}
+                  level={3}
+                  id={titleId}
+                  data-visible={animVisible}
+                >
+                  <DecoderText text={title} start={animVisible} delay={300} />
+                </Heading>
+                {subtitle ? (
+                  <Text as="p" className={styles.subtitle} data-visible={animVisible}>
+                    {subtitle}
+                  </Text>
+                ) : null}
+              </div>
             </div>
             {animVisible && (
               <ul className={styles.column}>

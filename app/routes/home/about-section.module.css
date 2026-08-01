@@ -1,49 +1,27 @@
 .about {
   width: 100vw;
-  min-height: 100vh;
-  margin-top: 60px;
-  margin-bottom: 40px;
-  padding-top: 60px;
-  padding-bottom: 40px;
+  padding: var(--space4XL) var(--spaceOuter) var(--space2XL);
   display: flex;
   justify-content: center;
 
-  @media (--mediaTablet) {
-    padding-top: 50px;
-    padding-right: 80px;
-    padding-left: 160px;
-    height: auto;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
-
   @media (--mediaMobile) {
-    margin-top: 0;
     padding-top: var(--space4XL);
     overflow-x: hidden;
-  }
-
-  @media (--mediaMobile), (--mediaMobileLS) {
-    padding-right: var(--spaceOuter);
-    padding-left: var(--spaceOuter);
-  }
-
-  @media (max-width: 820px) and (max-height: 420px) {
-    padding-right: var(--space4XL);
-    padding-left: var(--space4XL);
   }
 }
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 50%;
-  grid-column-gap: var(--space2XL);
-  max-width: var(--maxWidthL);
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1080px;
   width: 100%;
 
   @media (--mediaTablet) {
     max-width: 600px;
     grid-template-columns: 100%;
+    gap: var(--space2XL);
   }
 }
 
@@ -52,13 +30,25 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.header {
+  width: 100%;
   margin-bottom: 40px;
-  transform: translate3d(0, 0, 0);
+}
+
+.divider {
+  margin-bottom: var(--spaceL);
 }
 
 .title {
   white-space: nowrap;
-  margin-bottom: var(--spaceL);
+  margin: 0;
+  font-family: 'Space Grotesk', var(--fontStack);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationM);
 
@@ -68,7 +58,11 @@
 }
 
 .description {
-  margin-bottom: var(--spaceXL);
+  margin: 0 0 24px;
+  font-family: 'Manrope', var(--fontStack);
+  font-size: 16px;
+  line-height: 1.8;
+  color: #b5b5b5;
   opacity: 0;
   transition: opacity var(--durationXL) ease var(--durationL);
 
@@ -77,23 +71,62 @@
   }
 }
 
+.description strong {
+  color: #f2f2f2;
+  font-weight: var(--fontWeightBold);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  font-family: 'Space Grotesk', var(--fontStack);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity var(--durationXL) ease var(--durationL),
+    color var(--durationS) ease;
+
+  &[data-visible='true'] {
+    opacity: 1;
+  }
+}
+
+.cta:hover,
+.cta:focus-visible {
+  color: color-mix(in lab, var(--accent) 70%, white);
+  outline: none;
+}
+
+.ctaGlyph {
+  font-size: 13px;
+}
+
 .tag {
-  margin-top: 220px;
-  margin-bottom: 40px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  width: 100%;
   display: grid;
-  grid-template-columns: var(--space4XL) 1fr;
+  grid-template-columns: 76px 1fr;
   gap: 12px;
   align-items: center;
 
   @media (--mediaTablet) {
-    margin-top: 30px;
+    margin-top: 0;
   }
 }
 
 .tagText {
-  font-size: var(--fontSizeBodyS);
-  font-weight: var(--fontWeightMedium);
-  color: var(--primary);
+  font-family: 'Space Grotesk', var(--fontStack);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
   opacity: 0;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
@@ -111,17 +144,35 @@
   }
 }
 
+.imageFrame {
+  position: relative;
+  width: 100%;
+  border: 1px solid #232323;
+  padding: 12px;
+  background: linear-gradient(160deg, #141414 0%, #101012 100%);
+}
+
+.cornerTR {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 44px;
+  height: 44px;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.cornerBL {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 44px;
+  height: 44px;
+  border-bottom: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+
 .image {
   position: relative;
   width: 100%;
-}
-
-.button {
-  opacity: 0;
-  transition: opacity var(--durationXL) ease var(--durationL);
-
-  &[data-visible='true'] {
-    transform: none;
-    opacity: 1;
-  }
 }
