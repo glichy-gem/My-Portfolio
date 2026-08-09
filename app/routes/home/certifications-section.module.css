@@ -281,6 +281,12 @@
   opacity: 1;
 }
 
+/* While exiting, the backdrop is invisible but still mounted and covers the
+   viewport — without this it keeps swallowing clicks on the page beneath. */
+.modalBackdrop:not([data-visible='true']) {
+  pointer-events: none;
+}
+
 .modal {
   background: #0a0a0a;
   border: 1px solid #232323;
