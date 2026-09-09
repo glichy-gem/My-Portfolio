@@ -285,7 +285,7 @@ export const Chatbot = () => {
             </form>
             <div className={styles.footer}>
               <Text size="xs" secondary as="span">
-                {remaining < 80 ? `${remaining} characters left` : 'Powered by Groq · gpt-oss-20b'}
+                {remaining < 80 ? `${remaining} characters left` : 'Powered by Groq · Llama 3.3 70B'}
               </Text>
             </div>
           </div>

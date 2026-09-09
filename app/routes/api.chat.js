@@ -2,7 +2,7 @@ import { json } from '@remix-run/cloudflare';
 import { buildSystemPrompt } from '~/components/chatbot/system-prompt';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const MODEL = 'openai/gpt-oss-20b';
+const MODEL = 'llama-3.3-70b-versatile';
 const MAX_MESSAGE_CHARS = 500;
 const MAX_HISTORY = 20;
 
